@@ -1,9 +1,0 @@
-baseURL = "http://mymusise.github.io/"
-languageCode = "en-us"
-title = "CorCassia"
-theme = "ananke"
-
-publishDir = "docs"
-
-[params]
-    featured_image = "/images/b1.jpg"
