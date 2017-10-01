@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on CorCassia</title>
+    <title>Tags on Even - A super concise theme for Hugo</title>
     <link>https://mymusise.github.io/tags/</link>
-    <description>Recent content in Tags on CorCassia</description>
+    <description>Recent content in Tags on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>en</language>
+    <copyright>mymusise</copyright>
     
 	<atom:link href="https://mymusise.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ubuntu</title>
+      <link>https://mymusise.github.io/tags/ubuntu/</link>
+      <pubDate>Sun, 17 Sep 2017 23:59:17 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/ubuntu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>系统恢复</title>
+      <link>https://mymusise.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%81%A2%E5%A4%8D/</link>
+      <pubDate>Sun, 17 Sep 2017 23:59:17 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%81%A2%E5%A4%8D/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

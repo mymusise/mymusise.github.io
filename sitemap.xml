@@ -3,15 +3,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://mymusise.github.io/posts/repair_after_delete_python/</loc>
+    <loc>https://mymusise.github.io/post/repair_after_delete_python/</loc>
     <lastmod>2017-09-17T23:59:17+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://mymusise.github.io/posts/</loc>
-    <lastmod>2017-09-16T16:59:17+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -30,7 +23,7 @@
   </url>
   
   <url>
-    <loc>https://mymusise.github.io/posts/</loc>
+    <loc>https://mymusise.github.io/post/</loc>
     <lastmod>2017-09-17T23:59:17+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -38,6 +31,27 @@
   
   <url>
     <loc>https://mymusise.github.io/tags/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/ubuntu/</loc>
+    <lastmod>2017-09-17T23:59:17+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/categories/%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2017-09-17T23:59:17+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%81%A2%E5%A4%8D/</loc>
+    <lastmod>2017-09-17T23:59:17+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
