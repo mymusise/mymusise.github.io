@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>系统恢复 on Even - A super concise theme for Hugo</title>
+    <link>https://mymusise.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%81%A2%E5%A4%8D/</link>
+    <description>Recent content in 系统恢复 on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>mymusise</copyright>
+    <lastBuildDate>Sun, 17 Sep 2017 23:59:17 +0800</lastBuildDate>
+    
+	<atom:link href="https://mymusise.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%81%A2%E5%A4%8D/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>手抖删掉Python恢复手册</title>
+      <link>https://mymusise.github.io/post/repair_after_delete_python/</link>
+      <pubDate>Sun, 17 Sep 2017 23:59:17 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/repair_after_delete_python/</guid>
+      <description>0x00 故事的开始，老张一不小心手抖，把Ubuntu系统自带的python 用apt-get给 Remove了，然后在remove的时候会自动带上所有</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://mymusise.github.io/sitemap.xml
