@@ -10,14 +10,14 @@
   </url>
   
   <url>
-    <loc>https://mymusise.github.io/categories/</loc>
+    <loc>https://mymusise.github.io/</loc>
+    <lastmod>2017-09-17T23:59:17+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://mymusise.github.io/</loc>
-    <lastmod>2017-09-17T23:59:17+08:00</lastmod>
+    <loc>https://mymusise.github.io/categories/</loc>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
