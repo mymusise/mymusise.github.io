@@ -10,7 +10,7 @@ git checkout master
 
 cp -r /tmp/docs/* ./
 
-git add ---all
+git add --all
 git commit -m "update"
 git push
 
