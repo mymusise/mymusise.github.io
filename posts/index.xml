@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on CorCassia</title>
-    <link>http://mymusise.github.io/posts/</link>
+    <link>https://mymusise.github.io/posts/</link>
     <description>Recent content in Posts on CorCassia</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 17 Sep 2017 23:59:17 +0800</lastBuildDate>
     
-	<atom:link href="http://mymusise.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://mymusise.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>手抖删掉Python恢复手册</title>
-      <link>http://mymusise.github.io/posts/repair_after_delete_python/</link>
+      <link>https://mymusise.github.io/posts/repair_after_delete_python/</link>
       <pubDate>Sun, 17 Sep 2017 23:59:17 +0800</pubDate>
       
-      <guid>http://mymusise.github.io/posts/repair_after_delete_python/</guid>
+      <guid>https://mymusise.github.io/posts/repair_after_delete_python/</guid>
       <description>0x00 故事的开始，老张一不小心手抖，把Ubuntu系统自带的python 用apt-get给 Remove了，然后在remove的时候会自动带上所有依赖着python这个包的所有安装过的包，这次主要最麻烦的是ubuntu的好多图形化的Package都依赖着Python，这样一下就会把Ubuntu的Desktop搞挂了。为了祭奠这些被删掉的Package，下面提供一份不完整的修复手册。
 0x01 先别慌，如果不小心在remove的时候按下了 Y ，把所有Package都删掉了，这个时候先不用慌，记住这个时候你的系统最好不要重启。然后你可以通过apt的日志里面把刚刚删除掉的包都找出来：
 grep Remove /var/log/apt/history.log | tail -1 | sed -e &#39;s|Remove: ||g&#39; -e &#39;s|([^)]*)||g&#39; -e &#39;s|:[^ ]* ||g&#39; -e &#39;s|,||g&#39;  然后把这些包全部重新apt-get install一遍，如无意外因该都能安装回来。
@@ -27,10 +27,10 @@ unity-control-center-signon ibus-table python-httplib2 python-dbus python-distli
     
     <item>
       <title>Test</title>
-      <link>http://mymusise.github.io/posts/</link>
+      <link>https://mymusise.github.io/posts/</link>
       <pubDate>Sat, 16 Sep 2017 16:59:17 +0800</pubDate>
       
-      <guid>http://mymusise.github.io/posts/</guid>
+      <guid>https://mymusise.github.io/posts/</guid>
       <description> Hello Test </description>
     </item>
     
