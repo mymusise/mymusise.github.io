@@ -3,7 +3,7 @@ languageCode = "en-us"
 title = "CorCassia"
 theme = "ananke"
 
-publishDir = "docs"
+publishDir = "/tmp/docs"
 
 [params]
     featured_image = "/images/b1.jpg"
