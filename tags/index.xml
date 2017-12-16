@@ -7,9 +7,37 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>mymusise</copyright>
+    <lastBuildDate>Sat, 16 Dec 2017 23:19:14 +0800</lastBuildDate>
     
 	<atom:link href="https://mymusise.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Bug</title>
+      <link>https://mymusise.github.io/tags/bug/</link>
+      <pubDate>Sat, 16 Dec 2017 23:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/bug/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Django</title>
+      <link>https://mymusise.github.io/tags/django/</link>
+      <pubDate>Sat, 16 Dec 2017 23:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/django/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pk</title>
+      <link>https://mymusise.github.io/tags/pk/</link>
+      <pubDate>Sat, 16 Dec 2017 23:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/pk/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Ubuntu</title>
