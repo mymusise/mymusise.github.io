@@ -4,7 +4,7 @@ date: 2017-12-16T23:19:14+08:00
 draft: true
 draft: false
 tags: ["Django", "pk", "BUG"]
-categories: ["系统"]
+categories: ["Web"]
 
 comment: false
 toc: false
