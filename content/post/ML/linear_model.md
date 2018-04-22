@@ -2,7 +2,7 @@
 title: "线性回归模型"
 date: 2018-04-11T20:19:14+08:00
 draft: true
-tags: ["Sklearn", "Linear", "Note"]
+tags: ["Sklearn", "Linear", "Machine learning", "Note"]
 categories: ["ML"]
 
 comment: false
@@ -14,10 +14,11 @@ mathjax: true
 
 # 0x00
 
-这篇短文主要讲**Scikit-learn**下面的三种线性模型使用，也是比较熟悉和常用的几个：
+这篇短文主要讲**Scikit-learn**下面的几种线性模型使用，也是比较熟悉和常用的几个：
+
 - 普通线性回归
 - 逻辑回归
-- 线性判断分析
+<!-- - 线性判断分析 -->
 
 # 0x01逻辑回归
 这个模型是最简单也是最基础的一个模型，通过求际观测数据和预测数据之间的最小差方和来拟合方程，一般可以用来。单地做些数据预测。公逻辑也是回归式表示如下：
@@ -75,11 +76,12 @@ plt.show()
 
 下面举个例子
 
-- 假设有个叫颜值系数F(0~100)，F越大说明这个人长得越好看，那么它脱单的几率越高，反之就越低了。现在我们在某学校计院里面随即抽取了13个人，然后给他们取了编号分别为1～13，测量他们的颜值系数以及是否单身，情况如下：
+- 假设有个叫颜值系数F(0~100)，F越大说明这个人长得越好看，那么它脱单的几率越高，反之就越低了，另外还添加一个幽默程度(0~100)，同样越高说明这个人越有趣，越容易找到对象。为了拟合出这两个系数共同的影响因子，现在我们在某学校计院里面随即抽取了13个人，然后给他们取了编号分别为1～13，测量他们的颜值系数以及是否单身，情况如下：
 
 | 编号    | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  | 11  | 12  | 13  |
 |-------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
 | 颜值系数F | 40  | 30  | 81  | 66  | 43  | 94  | 37  | 77  | 67  | 12  | 53  | 12  | 86  |
+| 幽默系数F | 20  | 67  | 70  | 90  | 88  | 60  | 20  | 80  | 30  | 35  | 78  | 50  | 90  |
 | 是否有对象 | 0   | 0   | 1   | 0   | 1   | 1   | 0   | 1   | 1   | 0   | 0   | 0   | 1   |
 
 我们定义下这些数据，画坐标轴上是一个这样的分布
@@ -87,11 +89,25 @@ plt.show()
 ```python
 from matplotlib import pyplot as plt
 
-x = [40, 30, 81, 66, 43, 94, 37, 77, 67, 12, 53, 12, 86]
-y = [0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1]
+x1 = [40, 30, 81, 71, 43, 94, 37, 77, 67, 12, 53, 12, 86]
+x2 = [20, 67, 70, 43, 88, 60, 20, 80, 30, 35, 78, 50, 90]
+y = [0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1]
 
 fig, ax = plt.subplots()
-ax.plot(x, y, 'o')
+datas = list(zip(x1, x2, y))
+get_cord_x1 = lambda x:x[0]
+get_cord_x2 = lambda x:x[1]
+cord1 = list(filter(lambda x:x[2]==0, datas)) # 把两类数据分开
+cord2 = list(filter(lambda x:x[2]==1, datas))
+x1cord1 = list(map(get_cord_x1, cord1))
+x2cord1 = list(map(get_cord_x2, cord1))
+x1cord2 = list(map(get_cord_x1, cord2))
+x2cord2 = list(map(get_cord_x2, cord2))
+
+ax.scatter(x1cord1, x2cord1, c='blue', marker='s')
+ax.scatter(x1cord2, x2cord2, c='green')
+plt.xlabel('X1')
+plt.ylabel('X2')
 plt.show()
 ```
 
@@ -103,11 +119,13 @@ from sklearn import linear_model
 import numpy as np
 
 clf = linear_model.LogisticRegression(C=1.0, penalty='l1', tol=1e-6)
-X = np.array(x).reshape(-1, 1)
+X = np.array(np.mat(list(zip(x1, x2))))
 clf.fit(X, y)
 print(clf.coef_, clf.intercept_)
 ```
-这里得到`θ1`的系数是`0.036`，`θ0`是`-1.76`，画出来大概是这样
+
+这里得到`θ0`, `θ1`, `θ2` 分别是`-1.92`, `0.03`, `0.016`。
+我们把决策边界（**θX**=0）画出来如下图所示：
 
 <div style="text-align:center"><img src ="/images/ml/linear_model_f3.png" /></div>
 
