@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Svm on A little change</title>
+    <link>https://mymusise.github.io/tags/svm/</link>
+    <description>Recent content in Svm on A little change</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>mymusise</copyright>
+    <lastBuildDate>Thu, 26 Apr 2018 20:19:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://mymusise.github.io/tags/svm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SVM-支持向量机</title>
+      <link>https://mymusise.github.io/post/ml/svm/</link>
+      <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/ml/svm/</guid>
+      <description>0x00 有些书上写：“SVM是最好的现成分类器”，意思就是不用调参什么的，直接拿一个通用的SVM分类器去训练，模型就会表现得很不错。 0x01 基本原理 假如</description>
+    </item>
+    
+  </channel>
+</rss>

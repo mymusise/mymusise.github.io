@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Note on A little change</title>
+    <link>https://mymusise.github.io/tags/note/</link>
+    <description>Recent content in Note on A little change</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>mymusise</copyright>
+    <lastBuildDate>Thu, 26 Apr 2018 20:19:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://mymusise.github.io/tags/note/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SVM-支持向量机</title>
+      <link>https://mymusise.github.io/post/ml/svm/</link>
+      <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/ml/svm/</guid>
+      <description>0x00 有些书上写：“SVM是最好的现成分类器”，意思就是不用调参什么的，直接拿一个通用的SVM分类器去训练，模型就会表现得很不错。 0x01 基本原理 假如</description>
+    </item>
+    
+    <item>
+      <title>常用的Mathjax符号</title>
+      <link>https://mymusise.github.io/post/ml/mathjax_symbols/</link>
+      <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/ml/mathjax_symbols/</guid>
+      <description>记录一些常用的Mathjax语法 符号 \alpha $$ \alpha $$ \beta $$ \beta $$ \delta \Delta $$ \delta \quad \Delta $$ \eta $$ \eta $$ \epsilon $$ \epsilon \quad $$ \gamma \Gamma $$ \gamma \quad \Gamma $$ \iota $$ \iota $$ \kappa $$ \kappa $$ \lambda \Lambda $$ \lambda \quad \Lambda $$ \omega \Omega $$ \omega \quad \Omega</description>
+    </item>
+    
+    <item>
+      <title>决策树分类器</title>
+      <link>https://mymusise.github.io/post/ml/decision_tree/</link>
+      <pubDate>Fri, 13 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/ml/decision_tree/</guid>
+      <description>0x00 这篇主要介绍一下决策树(Decision tree)，它一般被用来做分类器，用它做的分类器有几种优势： 计算简单，易于理解，可解释性强 比较适合</description>
+    </item>
+    
+    <item>
+      <title>线性回归模型</title>
+      <link>https://mymusise.github.io/post/ml/linear_model/</link>
+      <pubDate>Wed, 11 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/ml/linear_model/</guid>
+      <description>0x00 这篇短文主要讲Scikit-learn下面的几种线性模型使用，也是比较熟悉和常用的几个： 普通线性回归 逻辑回归 0x01逻辑回归 这个模型是最简</description>
+    </item>
+    
+  </channel>
+</rss>

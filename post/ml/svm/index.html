@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>SVM-支持向量机 - A little change</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="mymusise" />
+  <meta name="description" content="0x00 有些书上写：“SVM是最好的现成分类器”，意思就是不用调参什么的，直接拿一个通用的SVM分类器去训练，模型就会表现得很不错。 0x01 基本原理 假如" />
+
+  <meta name="keywords" content="mymusise, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://mymusise.github.io/post/ml/svm/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.min.css?v=2.6.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="SVM-支持向量机" />
+<meta property="og:description" content="0x00 有些书上写：“SVM是最好的现成分类器”，意思就是不用调参什么的，直接拿一个通用的SVM分类器去训练，模型就会表现得很不错。 0x01 基本原理 假如" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mymusise.github.io/post/ml/svm/" />
+
+
+
+<meta property="article:published_time" content="2018-04-26T20:19:14&#43;08:00"/>
+<meta property="article:modified_time" content="2018-04-26T20:19:14&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="SVM-支持向量机">
+<meta itemprop="description" content="0x00 有些书上写：“SVM是最好的现成分类器”，意思就是不用调参什么的，直接拿一个通用的SVM分类器去训练，模型就会表现得很不错。 0x01 基本原理 假如">
+
+
+<meta itemprop="dateModified" content="2018-04-26T20:19:14&#43;08:00" />
+<meta itemprop="wordCount" content="2318">
+
+
+
+<meta itemprop="keywords" content="Sklearn,SVM,Machine learning,Note," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="SVM-支持向量机"/>
+<meta name="twitter:description" content="0x00 有些书上写：“SVM是最好的现成分类器”，意思就是不用调参什么的，直接拿一个通用的SVM分类器去训练，模型就会表现得很不错。 0x01 基本原理 假如"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Mymusise</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">列表</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Mymusise</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">列表</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">SVM-支持向量机</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-26 </span>
+        <div class="post-category">
+            <a href="/categories/ml/">ML</a>
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="0x00">0x00</h1>
+
+<p>有些书上写：“SVM是最好的现成分类器”，意思就是不用调参什么的，直接拿一个通用的SVM分类器去训练，模型就会表现得很不错。</p>
+
+<h1 id="0x01-基本原理">0x01 基本原理</h1>
+
+<p>假如有两类数据集，如下图所示，希望能找到一条直线，能把这两类数据给划分开，并且使得每个样本到直线的距离最大。</p>
+
+<div style="text-align:center"><img src ="/images/ml/svm_f1.png" /></div>
+
+<p>直线方程可以用以下公式表示，其中$\omega$是法向量，$x$为样本空间，：
+$$ \omega^Tx + b = 0 $$</p>
+
+<p>这个直线也被叫做为超平面（在高维中，如果样本时n维的，那么超平面是n-1维），那么样本空间种任意点x到超平面的距离为：</p>
+
+<p>$$ \gamma = \frac{\omega^Tx + b}{||\omega||} $$</p>
+
+<p>如果要使得最大化间隔，(这里省略了若干推导)，最终我们得到的目标函数为：</p>
+
+<p>$$
+\min_{w,b} \frac{1}{2} || \omega ||^2 \\<br />
+s.t. \ y_i(\omega^Tx_i+b) \geqslant 1 ,\quad i =1,2,&hellip;,m.
+$$</p>
+
+<p>对于有约束条件的求极值问题，一般可以选择用拉格朗日乘子法来进行求值，基于上面的目标函数 $f(\omega)$ ，然后我们让加上 $\alpha$ 倍的约束函数 : $L(\omega, b, \alpha) = f(\omega) + \alpha\phi(x)$, 按照这种形式，我们的目标函数可以写成：</p>
+
+<p>$$ L(\omega, b, \alpha) = \frac{1}{2} || \omega ||^2 + \sum_{i=1}^{m}{\alpha_i (1 - y_i(\omega^Tx_i+b))} $$</p>
+
+<p>其中 $\alpha = (\alpha_1;\alpha_2;&hellip;;\alpha_m)$. 令
+$$
+\frac{\partial{L(\omega, b, \alpha)}}{\partial{\omega}} = 0 \\<br />
+\frac{\partial{L(\omega, b, \alpha)}}{\partial{b}}  = 0$$</p>
+
+<p>可得,</p>
+
+<p>$$\omega = \sum_{i=1}^{m}{\alpha_i {y_i} {x_i}} $$</p>
+
+<p>$$\sum_{i=1}^{m}{\alpha_i {y_i}}= 0$$</p>
+
+<p>把上面两个结果代入到上一个目标函数，得到最终的目标函数：</p>
+
+<p>$$ \max_{\alpha} \ \sum_{i=1}^m \alpha_i - \frac{1}{2} \ \sum_{i=1}^{m}\sum_{j=1}^{m} \alpha_i \alpha_j y_i y_j x_i^T x_j$$</p>
+
+<p>这样我们消元掉$\omega$ 和 b 后，剩下就是求出 $\alpha$ 的值， 然后再通过 $\alpha$ 求出 $\omega$ 和 b。求解上面的目标函数 ，有个著名的算法叫SMO，实际上这个就是一个二次规划问题。</p>
+
+<h1 id="0x02-简单的二分类">0x02 简单的二分类</h1>
+
+<p>更多的细节暂时不展开，现在我们大概明白SVM的大概原理了。
+回到一开始的问题，我们需要找出一个超平面来划分我们的样本空间，下面用sklearn简单实现了下：</p>
+
+<pre><code class="language-python">from sklearn.svm import SVC
+from sklearn import datasets
+from matplotlib import pyplot as plt
+import numpy as np
+
+
+def draw_boundary2D(coef_, intercept_, X1, ax=None):
+    &quot;&quot;&quot;
+    画出我们的超平面
+    &quot;&quot;&quot;
+    for index, intercept in enumerate(intercept_):
+        weights = np.insert(coef_[index], 0, intercept)
+        X2 = (-weights[0] - weights[1] * X1) / weights[2]
+        if not ax:
+            ax = plt.subplot()
+        ax.plot(X1, X2)
+
+
+def separate_data(X, labels) -&gt; list:
+    &quot;&quot;&quot;
+    把原始数据按照label分开，方便画图
+    &quot;&quot;&quot;
+    datas = dict(((label, []) for label in set(labels)))
+    for x, label in zip(X, labels):
+        print(type(x))
+        datas[label].append(x)
+    return list(datas.values())
+
+
+def draw(X, y, coef_, intercept_):
+    &quot;&quot;&quot;
+    画图
+    :param X: 样本数据
+    :param y: 样本对应的标签
+    :param coef_: 超平面参数W
+    :param intercept_: 超平面参数b
+    :return:
+    &quot;&quot;&quot;
+    datas = np.array(separate_data(X, y))
+    ax = plt.subplot()
+    for i in range(len(datas)):
+        ax.plot(np.array(datas[i])[:, 0], np.array(datas[i])[:, 1], 'o')
+
+    X1 = X[:, 0]
+    draw_boundary2D(coef_, intercept_, X1, ax=ax)
+
+    plt.show()
+
+
+if __name__ == '__main__':
+    X, y = datasets.make_blobs(n_features=2, centers=2, n_samples=20, cluster_std=2.0) # 生成样本
+    clf = SVC(kernel='linear') # 使用线性核函数，默认是rbf
+    clf.fit(X, y) # 训练数据
+
+    draw(X, y, clf.coef_, clf.intercept_)
+</code></pre>
+
+<div style="text-align:center"><img src ="/images/ml/svm_f2.png" /></div>
+
+<p>程序看起来很多，但是实际上我们利用sklearn来训练我们的样本得到我们的模型也就至用了两行。</p>
+
+<h1 id="0x03-多分类问题">0x03 多分类问题</h1>
+
+<p>从最上面介绍的基本原理可以看出，SVM一开始设计是用来解决二分类问题的。但是SVM也可以用来解决多分类的问题，一般有两种方法：</p>
+
+<ul>
+<li>通过对最原始的最优化问题进行修改，将多个超平面的参数合并到一个最优化问题里。但是这个求解过程太过复杂，计算量大，而且实现困难，所以一般现实问题都不会这样做。</li>
+<li>另外一种就是把多分类问题拆分成若干个二分类问题进行求解，最后合并最优结果。这类求解方法又分为两种：<code>OVR</code> 和 <code>OVO</code>.
+
+<ul>
+<li>OVR：全拼One-Vs-Rest, 这种方法也被叫做一对多。这种方法会将每一类样本用一个分类器去进行拟合。对于每一个分类器，该类会将其他所有类进行区分。这种方法优点在于计算量少，可解析。缺点就是当分类比较多的时候，会出现1:m这样的biased问题。</li>
+<li>OVO：全拼One-Vs-One，这种方法又叫一对一。这种方法会将每两类之间做一个分类器，这样就会产生 $\frac{n(n-1)}{2}$个分类器。好处在于这样可以避免掉样本不均衡的问题，但是同样大量增加了的训练和预测的计算量。不过一般生产环境为了效果更佳，会选择OVO。</li>
+<li>所以对于类别不多但是样本量很多的情况下，OVR表现会更好;但是对于样本种类多，准确率有很高要求的，选择OVO会更好。</li>
+</ul></li>
+</ul>
+
+<p>Sklearn同时提供了<code>OVR</code>和<code>OVO</code>的封装, 下面做两个简单的例子：</p>
+
+<h3 id="ovr"><code>OVR</code></h3>
+
+<pre><code class="language-python">from sklearn.multiclass import OneVsRestClassifier
+from sklearn.svm import  LinearSVC
+
+
+class_count = 4
+X, y = datasets.make_blobs(n_features=2, centers=class_count, n_samples=class_count * 15)
+clf = OneVsRestClassifier(LinearSVC())
+clf.fit(X, y)
+
+coef = [estimator.coef_[0] for estimator in clf.estimators_]
+intercept = [estimator.intercept_[0] for estimator in clf.estimators_]
+
+draw(X, y, clf.coef_, clf.intercept_)
+</code></pre>
+
+<div style="text-align:center"><img src ="/images/ml/svm_f3.png" /></div>
+
+<h3 id="ovo"><code>OVO</code></h3>
+
+<pre><code class="language-python">from sklearn.multiclass import OneVsOneClassifier
+
+clf = OneVsOneClassifier(LinearSVC())
+clf.fit(X, y) 
+
+coef = [estimator.coef_[0] for estimator in clf.estimators_]
+intercept = [estimator.intercept_[0] for estimator in clf.estimators_]
+
+draw(X, y, coef, intercept)
+</code></pre>
+
+<div style="text-align:center"><img src ="/images/ml/svm_f4.png" /></div>
+
+<h1 id="0x04-核函数">0x04 核函数</h1>
+
+<p>前面提到的分类问题，前提都是样本是线性可分的，那么对于样本是线性不可分的情况下，让样本<code>X</code>投影到更高维空间中 $x\mapsto \phi(x)$，使得样本在这个特征空间下，可以合适的划分超平面。</p>
+
+<p>比如像下面的这两类数据，在二维空间中找不到一个直线能将这两类数据区分开，不过我们通过观察，发现可以用一个类似椭圆的曲线将这两类区分开。</p>
+
+<div style="text-align:center"><img src ="/images/ml/svm_f5.png" /></div>
+
+<p>我们可以尝试通过以下映射，映射到维数更高的三维空间中：</p>
+
+<p>$$
+\left(
+\begin{aligned}
+x1 \\<br />
+x2
+\end{aligned}
+\right) \Rightarrow
+\left(
+\begin{array}
+x1 \\<br />
+x2 \\<br />
+x1^2 + x2^2
+\end{array}
+\right)
+$$</p>
+
+<p>显然，在三维空间中，存在一个超平面可以区分开这两类数据</p>
+
+<div style="text-align:center"><img src ="/images/ml/svm_f6.png" /></div>
+
+<p>我们的原函数 $f(x) = \sum_{i=1}^N{w_ix_i + b}$ 经过映射之后的表示为：</p>
+
+<p>$$
+f(x) = \sum_{i=1}^N{w_i\phi(x_i) + b}
+$$</p>
+
+<p>常用的核函数有：</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>线性核</td>
+<td>$$ k(x, y) = x^Ty + c $$</td>
+</tr>
+
+<tr>
+<td>多项核</td>
+<td>$$ k(x, y) = (ax^Ty + c)^d $$</td>
+</tr>
+
+<tr>
+<td>径向基核(RBF)又称高斯核</td>
+<td>$$ k(x, y) = exp(-\gamma|| x-y || ^2) or \\\ k(x, y) = exp(-\frac{ || x-y || ^2}{2\delta^2}) $$</td>
+</tr>
+
+<tr>
+<td>幂指函数核</td>
+<td>$$ k(x, y) = exp(-\frac{|| x-y || }{2\delta^2}) $$</td>
+</tr>
+
+<tr>
+<td>拉普拉斯核</td>
+<td>$$ k(x, y) = exp(-\frac{|| x-y || }{\delta}) $$</td>
+</tr>
+
+<tr>
+<td>Sigmoid核</td>
+<td>$$ k(x, y) = tanh(ax^T+c) $$</td>
+</tr>
+</tbody>
+</table>
+
+<p>我们这里重点说一下高斯核，也就是径向基核函数，简称<code>RBF</code>。在Sklearn里面Svm模块默认的kernel就是<strong>rbf</strong>。径向基核函数，顾名思义，取值仅仅依赖特定点距离的实值函数，也就是 $\phi(x, y) = \phi(||x-y||)$ 。只要满足$\phi(x, y) = \phi(||x-y||)$都叫<strong>径向量函数</strong>，一般我们都是用欧式距离。</p>
+
+<p>在用SVM模块时候进行分类的时候，Sklearn提供了很方便的接口让我们去调用，下面举个调用不同kernel的例子：</p>
+
+<pre><code class="language-python">from matplotlib import pyplot as plt
+import numpy as np
+from sklearn.svm import SVC
+
+
+X = [[1, 2], [2, 4], [4, 4], [2, 1], [3, 2], [4, 2]]
+y = [0, 0, 0, 1, 1, 1]
+evaluate_data = np.array([[2.5, 2.5], [2.5, 2.8]])
+kernels = ['linear', 'poly', 'rbf', 'sigmoid']
+
+datas = np.array(separate_data(X, y))
+ax = plt.subplot(111)
+for i in range(len(datas)):
+    ax.plot(np.array(datas[i])[:, 0], np.array(datas[i])[:, 1], 'o')
+ax.plot(evaluate_data[:, 0], evaluate_data[:, 1], '*')
+
+for index, kernel in enumerate(kernels):
+    clf = SVC(kernel=kernel, probability=True)  # 使用线性核函数，默认是rbf
+    clf.fit(X, y)  # 训练数据
+    print(clf.predict_proba(evaluate_data)) # 用这个模型预测 (2.5, 2.5), (2.5, 2.8)这两个点的分类结果概率
+
+plt.show()
+</code></pre>
+
+<p>最终结果输出如下：</p>
+
+<pre><code>&gt;&gt;&gt;[[0.56740906 0.43259094]
+ [0.61265554 0.38734446]]
+
+&gt;&gt;&gt;[[0.53774676 0.46225324]
+ [0.58272179 0.41727821]]
+
+&gt;&gt;&gt;[[0.3932861 0.6067139]
+ [0.1732895 0.8267105]]
+
+&gt;&gt;&gt;[[0.5 0.5]
+ [0.5 0.5]]
+</code></pre>
+
+<p>从结果我们可以看出，不同kernel预测的结果都不一样，所以不同kernel拟合出来的超函数也是不一样的。所以在我们选择kernel的时候，需要观察数据的特点，不然即使我们使用kernel函数把原函数映射到高维空间后，还是找不到一个可以对样本进行划分合适的超平面。</p>
+
+<div style="text-align:center"><img src ="/images/ml/svm_f7.png" /></div>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">mymusise</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-04-26</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat_pay.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/sklearn/">Sklearn</a>
+          
+          <a href="/tags/svm/">SVM</a>
+          
+          <a href="/tags/machine-learning/">Machine learning</a>
+          
+          <a href="/tags/note/">Note</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/ml/mathjax_symbols/">
+            <span class="next-text nav-default">常用的Mathjax符号</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:mymusise1@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/mymusise" class="iconfont icon-github" title="github"></a>
+  <a href="https://mymusise.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">mymusise</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.6.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+
+
+</body>
+</html>

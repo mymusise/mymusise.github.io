@@ -1,0 +1,98 @@
+[
+  {
+    "id": "W97-1001",
+    "title": "A Trainable Message Understanding System*",
+    "key_words": ["Rules", "WordNet", "Generalization", "IBM"],
+    "mark": true
+  },
+  {
+    "id": "W97-1002",
+    "title": "Relational Learning of Pattern-Match Rules for Information Extraction",
+    "key_words": ["Rules", "Patterns-Match", "Patterns", "Generalization", "Information Extraction", "ILP", "RAPIER"],
+    "mark": false
+  },
+  {
+    "id": "W97-1003",
+    "title": "A Preliminary Study of Word Clustering Based on Syntactic Behavior",
+    "key_words": ["Treebank", "Word Clustering", "Syntactic Behavior"],
+    "mark": false
+  },
+  {
+    "id": "W97-1004",
+    "title": "Learning New Compositions from Given Ones",
+    "key_words": ["Learning Compositions"],
+    "mark": false
+  },
+  {
+    "id": "W97-1005",
+    "title": "A Statistical Decision Making Method: A Case Study on Prepositional Phrase Attachment*",
+    "key_words": ["PPA(Prepositional Phrase Attachment)", "Statistical"],
+    "mark": false
+  },
+  {
+    "id": "W97-1006",
+    "title": "A METHOD FOR IMPROVING AUTOMATIC CATEGORIZATION",
+    "key_words": ["Word Categorization", "lexicon space"],
+    "mark": false
+  },
+  {
+    "id": "W97-1007",
+    "title": "From Psycholinguistic Modelling of Interlanguage in Second Language Acquisition to a Computational Model",
+    "key_words": ["Rules", "Interlanguage", "Second Language", "ICALL"],
+    "mark": false
+  },
+  {
+    "id": "W97-1008",
+    "title": "What makes a word: Learning base units in Japanese for speech recognition",
+    "key_words": ["speech recognition"],
+    "mark": false
+  },
+  {
+    "id": "W97-1009",
+    "title": "Evolution of a Rapidly Learned Representation for Speech",
+    "key_words": ["Learning rules", "speech", "ANN"],
+    "mark": false
+  },
+  {
+    "id": "W97-1010",
+    "title": "Learning Stochastic Categorial Grammars",
+    "key_words": ["Categorial Grammars", "MDL(Minimum Description Length)", "MLE", "Rules"],
+    "mark": false
+  },
+  {
+    "id": "W97-1011",
+    "title": "Learning and Application of Differential Grammars",
+    "key_words": ["Differential Grammars"],
+    "mark": false
+  },
+  {
+    "id": "W97-1012",
+    "title": "Recurrent Neural-Network Learning of Phonological Regularities in Turkish",
+    "key_words": ["Neural-Network"],
+    "mark": false
+  },
+  {
+    "id": "W97-1013",
+    "title": "Explanation-Based Learning of Data-Oriented Parsing",
+    "key_words": ["EBL", "DOP", "CFG", "LTAG", "TSG"],
+    "mark": true
+  },
+  {
+    "id": "W97-1014",
+    "title": "Word Triggers and the EM Algorithm",
+    "key_words": ["EM Algorithm", "Triggers", "cache", "Linear Interpolation"],
+    "mark": false
+  },
+  {
+    "id": "W97-1015",
+    "title": "A Comparative Study of the Application of Different Learning Techniques to Natural Language Interfaces",
+    "key_words": ["Machine Learning", "Comparative"],
+    "mark": false
+  },
+  {
+    "id": "W97-1016",
+    "title": "Resolving PP attachment Ambiguities with Memory-Based Learning",
+    "key_words": ["PP", "KNN", "MBL", "MVDM", "PCA"],
+    "mark": true
+  }
+]

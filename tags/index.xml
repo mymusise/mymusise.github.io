@@ -22,6 +22,15 @@
     </item>
     
     <item>
+      <title>Decision Tree</title>
+      <link>https://mymusise.github.io/tags/decision-tree/</link>
+      <pubDate>Fri, 13 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/decision-tree/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Django</title>
       <link>https://mymusise.github.io/tags/django/</link>
       <pubDate>Sat, 16 Dec 2017 23:19:14 +0800</pubDate>
@@ -31,11 +40,74 @@
     </item>
     
     <item>
+      <title>Linear</title>
+      <link>https://mymusise.github.io/tags/linear/</link>
+      <pubDate>Wed, 11 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/linear/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Machine Learning</title>
+      <link>https://mymusise.github.io/tags/machine-learning/</link>
+      <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Markdown</title>
+      <link>https://mymusise.github.io/tags/markdown/</link>
+      <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/markdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mathjax</title>
+      <link>https://mymusise.github.io/tags/mathjax/</link>
+      <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/mathjax/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Note</title>
+      <link>https://mymusise.github.io/tags/note/</link>
+      <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/note/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Pk</title>
       <link>https://mymusise.github.io/tags/pk/</link>
       <pubDate>Sat, 16 Dec 2017 23:19:14 +0800</pubDate>
       
       <guid>https://mymusise.github.io/tags/pk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sklearn</title>
+      <link>https://mymusise.github.io/tags/sklearn/</link>
+      <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/sklearn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Svm</title>
+      <link>https://mymusise.github.io/tags/svm/</link>
+      <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/tags/svm/</guid>
       <description></description>
     </item>
     

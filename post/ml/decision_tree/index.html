@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>决策树分类器 - A little change</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="mymusise" />
+  <meta name="description" content="0x00 这篇主要介绍一下决策树(Decision tree)，它一般被用来做分类器，用它做的分类器有几种优势： 计算简单，易于理解，可解释性强 比较适合" />
+
+  <meta name="keywords" content="mymusise, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://mymusise.github.io/post/ml/decision_tree/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.min.css?v=2.6.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="决策树分类器" />
+<meta property="og:description" content="0x00 这篇主要介绍一下决策树(Decision tree)，它一般被用来做分类器，用它做的分类器有几种优势： 计算简单，易于理解，可解释性强 比较适合" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mymusise.github.io/post/ml/decision_tree/" />
+
+
+
+<meta property="article:published_time" content="2018-04-13T20:19:14&#43;08:00"/>
+<meta property="article:modified_time" content="2018-04-13T20:19:14&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="决策树分类器">
+<meta itemprop="description" content="0x00 这篇主要介绍一下决策树(Decision tree)，它一般被用来做分类器，用它做的分类器有几种优势： 计算简单，易于理解，可解释性强 比较适合">
+
+
+<meta itemprop="dateModified" content="2018-04-13T20:19:14&#43;08:00" />
+<meta itemprop="wordCount" content="612">
+
+
+
+<meta itemprop="keywords" content="Sklearn,Decision Tree,Machine learning,Note," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="决策树分类器"/>
+<meta name="twitter:description" content="0x00 这篇主要介绍一下决策树(Decision tree)，它一般被用来做分类器，用它做的分类器有几种优势： 计算简单，易于理解，可解释性强 比较适合"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Mymusise</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">列表</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Mymusise</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">列表</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">决策树分类器</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-13 </span>
+        <div class="post-category">
+            <a href="/categories/ml/">ML</a>
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="0x00">0x00</h1>
+
+<p>这篇主要介绍一下决策树(Decision tree)，它一般被用来做分类器，用它做的分类器有几种优势：</p>
+
+<ul>
+<li>计算简单，易于理解，可解释性强</li>
+<li>比较适合处理有缺失属性的样本</li>
+<li>能够处理不相关的特征</li>
+<li>在相对短的时间内能够对大型数据源做出可行且效果良好的结果</li>
+</ul>
+
+<p>但是呢它也有几个缺点：</p>
+
+<ul>
+<li>容易发生过拟合（随机森林可以很大程度上减少过拟合）</li>
+<li>忽略了数据之间的相关性</li>
+</ul>
+
+<p>下面举个简单的例子，假如我们有一堆矿石需要给他们进行分类，在我们数据库里有这几类矿石的硬度和密度数据，我们可以用Sklearn快速实现：</p>
+
+<p>利用sklearn<code>make_blobs()</code>函数先定义三类数据，并描绘出来</p>
+
+<pre><code class="language-python">from matplotlib import pyplot as plt
+from sklearn import datasets
+import numpy as np
+
+X, Y = datasets.make_blobs(n_features=2, centers=3, center_box=[1.5, 8.5]) # 定义了三类矿石数据
+
+cluster1, cluster2, cluster3 = [], [], []
+for x, y in zip(X, Y):
+    if y == 0:
+        cluster1.append(x)
+    elif y == 1:
+        cluster2.append(x)
+    elif y == 2:
+        cluster3.append(x)
+cluster1 = np.array(cluster1)
+cluster2 = np.array(cluster2)
+cluster3 = np.array(cluster3)
+
+fig, ax = plt.subplots()
+plt.xlim(0, 10)
+plt.ylim(0, 10)
+ax.scatter(cluster1[:, 0], cluster1[:, 1], c='r', marker='*')
+ax.scatter(cluster2[:, 0], cluster2[:, 1], c='g', marker='+')
+ax.scatter(cluster3[:, 0], cluster3[:, 1], c='b', marker='o')
+plt.show()
+</code></pre>
+
+<div style="text-align:center"><img src ="/images/ml/decision_tree_f1.png" /></div>
+
+<p>然后我们把这些训练数据用Sklearn的<code>DecisionTreeClassifier</code>进行训练，由于决策树很难把边界刻画出来，所以我们先把训练好的决策树给描绘出来：</p>
+
+<pre><code class="language-python">from sklearn import tree
+import graphviz
+
+clf = tree.DecisionTreeClassifier().fit(X, Y)
+
+dot_data = tree.export_graphviz(clf, out_file=None,
+                                feature_names=['硬度', '密度'],
+                                class_names=['A矿石', 'B矿石', 'C矿石'],
+                                filled=True, rounded=True, special_characters=True)
+graph = graphviz.Source(dot_data)
+graph.render('result')
+</code></pre>
+
+<div style="text-align:center"><img src ="/images/ml/decision_tree_f2.svg" /></div>
+
+<p>这样我们就快速用决策树实现了一个分类器，下面用训练好的模型对预测数据进行分类：</p>
+
+<pre><code class="language-python">#          硬度, 密度
+test_data = [[3, 3],
+            [4, 6],
+            [7, 2],
+            [1, 9],
+            [2, 8]]
+results = clf.predict(test_data)
+for _x, result in zip(test_data, results):
+    print(_x, result)
+</code></pre>
+
+<p>结果如下：</p>
+
+<pre><code class="language-text">[3, 3] B矿石
+[4, 6] A矿石
+[7, 2] B矿石
+[1, 9] C矿石
+[2, 8] C矿石
+</code></pre>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">mymusise</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-04-13</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat_pay.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/sklearn/">Sklearn</a>
+          
+          <a href="/tags/decision-tree/">Decision Tree</a>
+          
+          <a href="/tags/machine-learning/">Machine learning</a>
+          
+          <a href="/tags/note/">Note</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/ml/mathjax_symbols/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">常用的Mathjax符号</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/post/ml/linear_model/">
+            <span class="next-text nav-default">线性回归模型</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:mymusise1@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/mymusise" class="iconfont icon-github" title="github"></a>
+  <a href="https://mymusise.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">mymusise</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.6.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+
+
+</body>
+</html>

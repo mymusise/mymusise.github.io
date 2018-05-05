@@ -3,6 +3,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://mymusise.github.io/post/ml/svm/</loc>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/post/ml/mathjax_symbols/</loc>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/post/ml/decision_tree/</loc>
+    <lastmod>2018-04-13T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/post/ml/linear_model/</loc>
+    <lastmod>2018-04-11T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mymusise.github.io/post/django_multi_column_pk_bug/</loc>
     <lastmod>2017-12-16T23:19:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -18,7 +46,7 @@
   
   <url>
     <loc>https://mymusise.github.io/</loc>
-    <lastmod>2017-12-16T23:19:14+08:00</lastmod>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -37,8 +65,57 @@
   </url>
   
   <url>
+    <loc>https://mymusise.github.io/tags/decision-tree/</loc>
+    <lastmod>2018-04-13T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://mymusise.github.io/tags/django/</loc>
     <lastmod>2017-12-16T23:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/linear/</loc>
+    <lastmod>2018-04-11T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/machine-learning/</loc>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/markdown/</loc>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/mathjax/</loc>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/categories/ml/</loc>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/note/</loc>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -52,7 +129,21 @@
   
   <url>
     <loc>https://mymusise.github.io/post/</loc>
-    <lastmod>2017-12-16T23:19:14+08:00</lastmod>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/sklearn/</loc>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/svm/</loc>
+    <lastmod>2018-04-26T20:19:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

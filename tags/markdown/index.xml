@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Markdown on A little change</title>
+    <link>https://mymusise.github.io/tags/markdown/</link>
+    <description>Recent content in Markdown on A little change</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>mymusise</copyright>
+    <lastBuildDate>Thu, 26 Apr 2018 20:19:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://mymusise.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>常用的Mathjax符号</title>
+      <link>https://mymusise.github.io/post/ml/mathjax_symbols/</link>
+      <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/ml/mathjax_symbols/</guid>
+      <description>记录一些常用的Mathjax语法 符号 \alpha $$ \alpha $$ \beta $$ \beta $$ \delta \Delta $$ \delta \quad \Delta $$ \eta $$ \eta $$ \epsilon $$ \epsilon \quad $$ \gamma \Gamma $$ \gamma \quad \Gamma $$ \iota $$ \iota $$ \kappa $$ \kappa $$ \lambda \Lambda $$ \lambda \quad \Lambda $$ \omega \Omega $$ \omega \quad \Omega</description>
+    </item>
+    
+  </channel>
+</rss>

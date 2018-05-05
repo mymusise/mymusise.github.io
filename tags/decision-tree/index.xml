@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Decision Tree on A little change</title>
+    <link>https://mymusise.github.io/tags/decision-tree/</link>
+    <description>Recent content in Decision Tree on A little change</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>mymusise</copyright>
+    <lastBuildDate>Fri, 13 Apr 2018 20:19:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://mymusise.github.io/tags/decision-tree/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>决策树分类器</title>
+      <link>https://mymusise.github.io/post/ml/decision_tree/</link>
+      <pubDate>Fri, 13 Apr 2018 20:19:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/ml/decision_tree/</guid>
+      <description>0x00 这篇主要介绍一下决策树(Decision tree)，它一般被用来做分类器，用它做的分类器有几种优势： 计算简单，易于理解，可解释性强 比较适合</description>
+    </item>
+    
+  </channel>
+</rss>
