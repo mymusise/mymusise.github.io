@@ -94,5 +94,65 @@
     "title": "Resolving PP attachment Ambiguities with Memory-Based Learning",
     "key_words": ["PP", "KNN", "MBL", "MVDM", "PCA"],
     "mark": true
+  },
+  {
+    "id": "W98-1201",
+    "title": "ABSTRACTION IS HARMFUL IN LANGUAGE LEARNING",
+    "key_words": [""],
+    "mark": false
+  },
+  {
+    "id": "W98-1202",
+    "title": "Natural Language Learning by Recurrent Neural Networks: A Comparison with probabilistic approaches",
+    "key_words": ["Elman network(RNN)", "RCC", "SRN"],
+    "mark": true
+  },
+  {
+    "id": "W98-1203",
+    "title": "Learning a Lexicalized Grammar for German",
+    "key_words": ["Lexicalized Grammar", "German"],
+    "mark": false
+  },
+  {
+    "id": "W98-1204",
+    "title": "A Lexically-Intensive Algorithm for Domain-Specific Knowlegde Acquisition",
+    "key_words": ["OCR", "IE-Systems"],
+    "mark": false
+  },
+  {
+    "id": "W98-1205",
+    "title": "Look-Back and Look-Ahead in the Conversion of Hidden Markov Models into Finite State Transducers",
+    "key_words": ["HMM", "FST"],
+    "mark": false
+  },
+  {
+    "id": "W98-1206",
+    "title": "The effect of alternative tree epresentatmns on tree bank grammars",
+    "key_words": ["Treebank", "PCFG", "CFG"],
+    "mark": false
+  },
+  {
+    "id": "W98-1207",
+    "title": "Automation of Treebank Annotation",
+    "key_words": ["Treebank", "Annotation"],
+    "mark": false
+  },
+  {
+    "id": "W98-1208",
+    "title": "Implementing a Sense Tagger in a General Architecture for Text Engineering",
+    "key_words": ["Architecture", "Sense Tagger"],
+    "mark": false
+  },
+  {
+    "id": "W98-1209",
+    "title": "Knowledge Extraction and Recurrent Neural Networks: An Analysis of an Elman Network trained on a Natural Language Learning Task",
+    "key_words": ["Knowledge", "RNN", "ANN", "FSA", "K-means"],
+    "mark": true
+  },
+  {
+    "id": "W98-1210",
+    "title": "Finding Structure via Compression",
+    "key_words": ["PPMC", "Compression"],
+    "mark": false
   }
 ]
