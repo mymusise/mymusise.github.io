@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>归档 - A little change</title>
+  <title>Numpy使用技巧 - A little change</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -17,7 +17,8 @@
 
 
 <meta name="author" content="mymusise" />
-  <meta name="description" content="A little change." />
+  <meta name="description" content="结果中去掉科学计算 import numpy numpy.set_printoptions(suppress=True)" />
+
   <meta name="keywords" content="mymusise, blog" />
 
 
@@ -28,9 +29,7 @@
 <meta name="generator" content="Hugo 0.27.1" />
 
 
-<link rel="canonical" href="https://mymusise.github.io/post/" />
-<link href="https://mymusise.github.io/post/index.xml" rel="alternate" type="application/rss+xml" title="A little change" />
-  <link href="https://mymusise.github.io/post/index.xml" rel="feed" type="application/rss+xml" title="A little change" />
+<link rel="canonical" href="https://mymusise.github.io/post/scientific/numpy_tips/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -43,29 +42,38 @@
 <link href="/dist/even.min.css?v=2.6.1" rel="stylesheet">
 <link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
-<meta property="og:title" content="Posts" />
-<meta property="og:description" content="A little change." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://mymusise.github.io/post/" />
+<meta property="og:title" content="Numpy使用技巧" />
+<meta property="og:description" content="结果中去掉科学计算 import numpy numpy.set_printoptions(suppress=True)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mymusise.github.io/post/scientific/numpy_tips/" />
 
 
 
-<meta property="og:updated_time" content="2017-12-16T23:19:14&#43;08:00"/>
-
-
-
-
-
+<meta property="article:published_time" content="2018-05-06T20:19:14&#43;08:00"/>
+<meta property="article:modified_time" content="2018-05-06T20:19:14&#43;08:00"/>
 
 
 
 
 
-<meta itemprop="name" content="Posts">
-<meta itemprop="description" content="A little change.">
 
-<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content="A little change."/>
+
+
+
+
+
+<meta itemprop="name" content="Numpy使用技巧">
+<meta itemprop="description" content="结果中去掉科学计算 import numpy numpy.set_printoptions(suppress=True)">
+
+
+<meta itemprop="dateModified" content="2018-05-06T20:19:14&#43;08:00" />
+<meta itemprop="wordCount" content="12">
+
+
+
+<meta itemprop="keywords" content="numpy,tips," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Numpy使用技巧"/>
+<meta name="twitter:description" content="结果中去掉科学计算 import numpy numpy.set_printoptions(suppress=True)"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -117,44 +125,77 @@
     <main id="main" class="main">
       <div class="content-wrapper">
         <div id="content" class="content">
-          
-<section id="archive" class="archive">
+          <article class="post">
     
-      <div class="collection-title">
-        <h2 class="archive-year">2017</h2>
+    <header class="post-header">
+      <h1 class="post-title">Numpy使用技巧</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-05-06 </span>
+        <div class="post-category">
+            <a href="/categories/ml/">ML</a>
+          </div>
+        
       </div>
+    </header>
 
-    <div class="archive-post">
-      <span class="archive-post-time">
-        12-16
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/django_multi_column_pk_bug/" class="archive-post-link">
-          Django使用联合主键的BUG
-        </a>
-      </span>
-    </div>
+    
     
 
-    <div class="archive-post">
-      <span class="archive-post-time">
-        09-17
-      </span>
-      <span class="archive-post-title">
-        <a href="/post/repair_after_delete_python/" class="archive-post-link">
-          手抖删掉Python恢复手册
-        </a>
-      </span>
-    </div></section>
+    
+    <div class="post-content">
+      
 
-<nav class="pagination">
-  <a class="prev" href="/post/">
-      <i class="iconfont icon-left"></i>
-      <span class="prev-text">上一页</span>
-    </a>
+<h2 id="结果中去掉科学计算">结果中去掉科学计算</h2>
+
+<pre><code class="language-python">import numpy
+numpy.set_printoptions(suppress=True)
+</code></pre>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">mymusise</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-05-06</span>
+  </p>
   
-</nav>
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
 
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/numpy/">numpy</a>
+          
+          <a href="/tags/tips/">tips</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/ml/svm/">
+            <span class="next-text nav-default">SVM-支持向量机</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
         </div>
         
       </div>  
@@ -200,6 +241,13 @@
   <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
   <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
 <script type="text/javascript" src="/dist/even.min.js?v=2.6.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
 
 
 
