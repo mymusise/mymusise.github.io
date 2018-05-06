@@ -154,5 +154,35 @@
     "title": "Finding Structure via Compression",
     "key_words": ["PPMC", "Compression"],
     "mark": false
+  },
+  {
+    "id": "W98-1211",
+    "title": "Linguistic Theory in Statistical Language Learning",
+    "key_words": ["SCFG", "Rules", "HMM", "N-gram", "Treebank", "CFG"],
+    "mark": false
+  },
+  {
+    "id": "W98-1212",
+    "title": "A Bayesian Approach to Automating Argumentation",
+    "key_words": ["Argumentation", "Graph", "Bayesian Network", "Semantic Network"],
+    "mark": false
+  },
+  {
+    "id": "W98-1213",
+    "title": "Automatically generating hypertext in newspaper articles by computing semantic relatedness",
+    "key_words": ["Lexical chains"],
+    "mark": false
+  },
+  {
+    "id": "W98-1214",
+    "title": "CHOOSING A DISTANCE METRIC FOR AUTOMATIC WORD CATEGORIZATION",
+    "key_words": ["Improving"],
+    "mark": false
+  },
+  {
+    "id": "W98-1215",
+    "title": "Sense Variation and Lexical Semantics Generative Operations",
+    "key_words": ["LCS", "Rules", "Sense Variation"],
+    "mark": false
   }
 ]
