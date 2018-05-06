@@ -8,7 +8,6 @@ categories: ["ML"]
 comment: false
 toc: false
 reward: false
-titleblock: true
 ---
 
 ## 结果中去掉科学计算

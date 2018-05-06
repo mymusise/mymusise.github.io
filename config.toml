@@ -12,6 +12,8 @@ googleAnalytics = ""      # UA-XXXXXXXX-X
 copyright = "mymusise"            # default: author.name ↓        # 默认为下面配置的author.name ↓
 staticDir = "static"
 publishDir = "/tmp/docs"
+ignoreFiles = [".*not_show.md$"]
+
 
 [author]                  # require                       # 必需
   name = "mymusise"
