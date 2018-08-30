@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>几种词向量的实现 - A little change</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="mymusise" />
+  <meta name="description" content="相关理论 要进行文本分析，首先得要把文本特征化，转成程序可以处理的数据格式。特征化一般要把文本切分成词的形式，所以处理文本时都有一部分分词的工" />
+
+  <meta name="keywords" content="mymusise, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://mymusise.github.io/post/nlp/word_counter/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.min.css?v=2.6.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="几种词向量的实现" />
+<meta property="og:description" content="相关理论 要进行文本分析，首先得要把文本特征化，转成程序可以处理的数据格式。特征化一般要把文本切分成词的形式，所以处理文本时都有一部分分词的工" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mymusise.github.io/post/nlp/word_counter/" />
+
+
+
+<meta property="article:published_time" content="2018-08-26T19:20:14&#43;08:00"/>
+<meta property="article:modified_time" content="2018-08-26T19:20:14&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="几种词向量的实现">
+<meta itemprop="description" content="相关理论 要进行文本分析，首先得要把文本特征化，转成程序可以处理的数据格式。特征化一般要把文本切分成词的形式，所以处理文本时都有一部分分词的工">
+
+
+<meta itemprop="dateModified" content="2018-08-26T19:20:14&#43;08:00" />
+<meta itemprop="wordCount" content="1957">
+
+
+
+<meta itemprop="keywords" content="NLP,words,index,Note," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="几种词向量的实现"/>
+<meta name="twitter:description" content="相关理论 要进行文本分析，首先得要把文本特征化，转成程序可以处理的数据格式。特征化一般要把文本切分成词的形式，所以处理文本时都有一部分分词的工"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Mymusise</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">列表</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Mymusise</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">列表</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">几种词向量的实现</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-08-26 </span>
+        <div class="post-category">
+            <a href="/categories/dl/">DL</a>
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h1 id="相关理论">相关理论</h1>
+
+<p>要进行文本分析，首先得要把文本特征化，转成程序可以处理的数据格式。特征化一般要把文本切分成词的形式，所以处理文本时都有一部分分词的工作。
+对于作为文本里最小单位的词，词的特征化一般有两种：
+- 独热编码（One-Hot Encoding）：One-Hot型的编码计算起来比较方便，但是维度很高，会导致参数<code>W</code>巨大，难以训练。
+- 稠密编码/特征嵌入（Embedding）：目前比较普遍的做法，可以大大降低维度，通过嵌入表去特征映射，可以说这个也是基于One-Hot做的优化</p>
+
+<h1 id="数据准备">数据准备</h1>
+
+<p>下面都用<code>20-newsgroups</code>数据集来进行说明，使用方法：</p>
+
+<pre><code class="language-python">from sklearn.datasets import fetch_20newsgroups
+
+categories = ['alt.atheism', 'soc.religion.christian', 'comp.graphics', 'sci.med']
+dataset = fetch_20newsgroups(
+    subset='train', categories=categories, shuffle=True, random_state=42)
+</code></pre>
+
+<p>数据大概是这样子：</p>
+
+<pre><code class="language-Python">In [36]: print(dataset.data[:2])
+Out[36]: 
+['From: sd345@city.ac.uk (Michael Collier)\nSubject: Converting images to HP LaserJet III?\nNntp-Posting-Host: hampton\nOrganization: The City University\nLines: 14\n\nDoes anyone know of a good way (standard PC application/PD utility) to\nconvert tif/img/tga files into LaserJet III format.  We would also like to\ndo the same, converting to HPGL (HP plotter) files.\n\nPlease email any response.\n\nIs this the correct group?\n\nThanks in advance.  Michael.\n-- \nMichael Collier (Programmer)                 The Computer Unit,\nEmail: M.P.Collier@uk.ac.city                The City University,\nTel: 071 477-8000 x3769                      London,\nFax: 071 477-8565                            EC1V 0HB.\n',
+ &quot;From: ani@ms.uky.edu (Aniruddha B. Deglurkar)\nSubject: help: Splitting a trimming region along a mesh \nOrganization: University Of Kentucky, Dept. of Math Sciences\nLines: 28\n\n\n\n\tHi,\n\n\tI have a problem, I hope some of the 'gurus' can help me solve.\n\n\tBackground of the problem:\n\tI have a rectangular mesh in the uv domain, i.e  the mesh is a \n\tmapping of a 3d Bezier patch into 2d. The area in this domain\n\twhich is inside a trimming loop had to be rendered. The trimming\n\tloop is a set of 2d Bezier curve segments.\n\tFor the sake of notation: the mesh is made up of cells.\n\n\tMy problem is this :\n\tThe trimming area has to be split up into individual smaller\n\tcells bounded by the trimming curve segments. If a cell\n\tis wholly inside the area...then it is output as a whole ,\n\telse it is trivially rejected. \n\n\tDoes any body know how thiss can be done, or is there any algo. \n\tsomewhere for doing this.\n\n\tAny help would be appreciated.\n\n\tThanks, \n\tAni.\n-- \nTo get irritated is human, to stay cool, divine.\n&quot;]
+</code></pre>
+
+<h1 id="one-hot-encoding">One-Hot Encoding</h1>
+
+<p>下面说两种实现方式：</p>
+
+<h2 id="自己写一个">自己写一个</h2>
+
+<p>这功能比较简单，自己可以写一个。虽然不是很提倡，但是下面做个简单的示范，拿英语为例子<strong><em>（因为这样子分词会比较简单，要自己写一个中文分词会比较麻烦）</em></strong>：</p>
+
+<pre><code class="language-python">from sklearn.datasets import fetch_20newsgroups
+from scipy.sparse import csr_matrix
+import re
+
+
+class Counter():
+    def __init__(self, lang):
+        self.lang = lang
+        self.word2idx = {}
+        self.idx2word = {}
+        self.vocab = set()
+        self.col_length = 0
+        self.row_length = 0
+        self.clean_re = re.compile(r&quot;[^a-zA-Z?.!,¿]+&quot;) # 去掉一些不是内容的字符集
+        self.token_re = re.compile(r&quot;[\.|\?|\ |\,|\']&quot;) # 分词
+
+        self.create_index() # 构建mapping
+
+    def tokenizer(self, text):
+        text = self.clean_re.sub(&quot; &quot;, text)
+        return self.token_re.split(text)
+
+    def create_index(self):
+        for text in self.lang:
+            tokens = self.tokenizer(text)
+            if self.col_length &lt; len(tokens):
+                self.col_length = len(tokens)
+            self.vocab.update(tokens)
+
+        self.vocab = sorted(self.vocab)
+
+        self.word2idx['&lt;pad&gt;'] = 0
+        for index, word in enumerate(self.vocab):
+            self.word2idx[word] = index + 1
+
+        for word, index in self.word2idx.items():
+            self.idx2word[index] = word
+
+    def transform2index(self, texts):
+        for text in texts:
+            tokens = self.tokenizer(text)
+            indices = [self.word2idx.get(token, 0) for token in tokens]
+            indices += [0 for i in range(self.col_length - len(indices))]
+            yield indices
+
+    def transform2matrix(self, texts):
+        indices = self.transform2index(texts)
+        self.row_length = len(self.vocab)
+        for index in indices:
+            _row = list(range(len(index)))[:self.row_length]
+            _col = index
+            data = [1 for i in _row]
+            yield csr_matrix((data, (_row, _col)), shape=(self.col_length, self.row_length))
+</code></pre>
+
+<p>我们拿上面的数据试一下：</p>
+
+<pre><code class="language-python">In [72]: counter = Counter(dataset.data)
+    ...: print(list(counter.transform2index([&quot;I'm Groot&quot;])))
+    ...: print(list(counter.transform2matrix([&quot;I'm Groot&quot;])))
+[[6136, 28031, 0]]
+[&lt;11000x39831 sparse matrix of type '&lt;class 'numpy.int64'&gt;'
+	with 3 stored elements in Compressed Sparse Row format&gt;]
+</code></pre>
+
+<h2 id="scikit-learn">Scikit-Learn</h2>
+
+<p>第一种，用的是<code>scikit-learn</code>提供的接口<code>CountVectorizer</code>， 方法如下：</p>
+
+<pre><code class="language-python">from sklearn.feature_extraction.text import CountVectorizer
+counter = CountVectorizer()
+counter.fit(dataset.data)
+</code></pre>
+
+<p>通过上面的<code>fit</code>操作，<code>CountVectorizer</code>就会帮你构建一个词表，查看词表如下：</p>
+
+<pre><code class="language-Python">In [39]: counter.vocabulary_
+Out[39]: 
+{'from': 14887,
+ 'sd345': 29022,
+ 'city': 8696,
+ 'ac': 4017,
+ 'uk': 33256,
+ 'michael': 21661,
+ 'collier': 9031,
+...
+}
+</code></pre>
+
+<p>有人说，这个值不值持中文或者其它语言。答案是当然了，实际上<code>CountVectorizer</code>在构建这个mapping的时候，会把输入text进行<code>tokenization</code>，也就是我们平时说的分词。负责这个是<code>tokenizer</code>函数，<a href="https://github.com/scikit-learn/scikit-learn/blob/0.19.X/sklearn/feature_extraction/text.py#L239">具体细节大家可以去看下源码</a>。比如中文，你可以调用<code>jieba</code>分词来定义它：</p>
+
+<pre><code class="language-python">import jieba
+
+def tokenizer(text):
+    return list(jieba.cut(text, cut_all=False))
+</code></pre>
+
+<p>然后我们在创建<code>CountVectorizer</code>的对象时候，加上它：</p>
+
+<pre><code class="language-python">counter = CountVectorizer(tokenizer=tokenizer)
+</code></pre>
+
+<p>利用上面的<code>counter</code>把字符串转成向量，返回的是一个稀疏矩阵</p>
+
+<pre><code class="language-python">In [42]: counter.transform([&quot;hello i'm goot&quot;])
+Out[42]: 
+&lt;1x35788 sparse matrix of type '&lt;class 'numpy.int64'&gt;'
+	with 1 stored elements in Compressed Sparse Row format&gt;
+</code></pre>
+
+<p>如果你需要在一开始拿去fit的数据都转成vector，你可以用<code>fit_transform</code>来代替掉<code>fit</code>，这样它会在训练完之后就返回那个稀疏矩阵。</p>
+
+<h1 id="embedding-词嵌入">Embedding （词嵌入）</h1>
+
+<p>上面讲的是One-Hot编码的，因为要进行Embedding之前，都需要把Word转成词表。同样下面说两种方法：</p>
+
+<h2 id="gensim">Gensim</h2>
+
+<p>Gensim可以说是NLP界处理文本的神器,最常用就是拿它来做文本特征，Gensim用的就是<code>WORD2VEC</code>算法。
+当你拿去构建词表的文本不多时候，可以直接这么做：</p>
+
+<pre><code class="language-python">import re
+from gensim.models import Word2Vec
+
+texts = [re.sub(&quot;[^a-zA-Z?.!,¿]+&quot;, &quot; &quot;, text) for text in dataset.data]
+texts = [re.split(&quot;[\.|\?|\ |\,|\']&quot;, text) for text in texts]
+model = Word2Vec(texts)
+</code></pre>
+
+<p>当然啦，很多时候我们要处理的文本量都比较大，我们没法一次都加载到内存中，这时候我们可以这么做：</p>
+
+<pre><code class="language-python">
+def text_generator():
+    for text in dataset.data&quot;
+        text = re.sub(&quot;[^a-zA-Z?.!,¿]+&quot;, &quot; &quot;, text)
+        text = re.split(&quot;[\.|\?|\ |\,|\']&quot;, text)
+        yield text
+
+model = Word2Vec(workers=4)
+model.build_vocab(text_generator())
+model.train(text_generator())
+</code></pre>
+
+<h4 id="保存模型">保存模型</h4>
+
+<p>如果你的文本量很大的话，训练一次这个模型也是很费时间的，所以我们训练完之后可以把它保存起来，后面使用的时候只需要load进来就可以了。</p>
+
+<pre><code class="language-python">model.save('path_to_save') # 保训练好的模型
+
+model = Word2Vec.load('path_to_save') # 加载训练过的模型
+</code></pre>
+
+<h1 id="tensorflow">Tensorflow</h1>
+
+<p>准确的说，实际上用的是<code>Keras</code>的模块，不错博主平时用的是<code>Tensorflow</code>，这里就偷懒不去用<code>Keras</code>来说明了。
+使用之前，也是需要把文本转成id:</p>
+
+<pre><code class="language-python">counter = Counter(dataset.data)
+indices = counter.transform2index(dataset.data)
+</code></pre>
+
+<p>其实这里应该可以把<code>Embedding</code>看成是网络中的一层，降输入层映射到高维。由于输入的文本太多，我们用<code>Dataset</code>去加载。</p>
+
+<pre><code class="language-python">import tensorflow as tf
+
+tf.enable_eager_execution()
+
+data = tf.data.Dataset().from_generator(lambda :indices, output_types=(tf.float32))
+data = data.batch(100).make_one_shot_iterator()
+X = data.get_next()
+embedding = tf.keras.layers.Embedding(len(counter.vocab), 200)
+embedding(X)
+</code></pre>
+
+<p>输出：</p>
+
+<pre><code class="language-python">Out[12]: 
+&lt;tf.Tensor: id=77, shape=(100, 11000, 200), dtype=float32, numpy=
+array([[[0.7414243 , 0.07747948, 0.60920155, ..., 0.46979737,
+         0.9815726 , 0.17995226],
+        [0.03834593, 0.39614272, 0.3659439 , ..., 0.24742019,
+         0.9771553 , 0.30359387],
+        [0.5240742 , 0.58283293, 0.95961046, ..., 0.5749551 ,
+         0.846769  , 0.9823524 ],
+        ...,
+        [0.3502736 , 0.988209  , 0.85835266, ..., 0.626845  ,
+         0.56388843, 0.13658428],
+        [0.3502736 , 0.988209  , 0.85835266, ..., 0.626845  ,
+         0.56388843, 0.13658428],
+        [0.3502736 , 0.988209  , 0.85835266, ..., 0.626845  ,
+         0.56388843, 0.13658428]]], dtype=float32)&gt;
+</code></pre>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">mymusise</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-08-26</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat_pay.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/nlp/">NLP</a>
+          
+          <a href="/tags/words/">words</a>
+          
+          <a href="/tags/index/">index</a>
+          
+          <a href="/tags/note/">Note</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/post/ml/svm/">
+            <span class="next-text nav-default">SVM-支持向量机</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:mymusise1@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/mymusise" class="iconfont icon-github" title="github"></a>
+  <a href="https://mymusise.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">mymusise</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.6.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+
+
+</body>
+</html>

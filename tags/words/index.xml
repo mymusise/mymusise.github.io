@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Words on A little change</title>
+    <link>https://mymusise.github.io/tags/words/</link>
+    <description>Recent content in Words on A little change</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>mymusise</copyright>
+    <lastBuildDate>Sun, 26 Aug 2018 19:20:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://mymusise.github.io/tags/words/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>几种词向量的实现</title>
+      <link>https://mymusise.github.io/post/nlp/word_counter/</link>
+      <pubDate>Sun, 26 Aug 2018 19:20:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/nlp/word_counter/</guid>
+      <description>相关理论 要进行文本分析，首先得要把文本特征化，转成程序可以处理的数据格式。特征化一般要把文本切分成词的形式，所以处理文本时都有一部分分词的工</description>
+    </item>
+    
+  </channel>
+</rss>
