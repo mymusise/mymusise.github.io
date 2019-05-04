@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>mymusise</copyright>
-    <lastBuildDate>Sun, 26 Aug 2018 19:20:14 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 03 Feb 2019 19:23:14 +0800</lastBuildDate>
     
 	<atom:link href="https://mymusise.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>从另一个角度看深度神经网络</title>
+      <link>https://mymusise.github.io/post/dl/other_side_deep_network/</link>
+      <pubDate>Sun, 03 Feb 2019 19:23:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/dl/other_side_deep_network/</guid>
+      <description>0x00 你的网络怎么处理问题的 最开始尝试用DL去做NLP相关任务时候，时不时会想要怎么解析训练出来的网络是怎么去执行这些任务呢？看过NG老师课程的</description>
+    </item>
     
     <item>
       <title>几种词向量的实现</title>

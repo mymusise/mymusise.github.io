@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Discuss on A little change</title>
+    <link>https://mymusise.github.io/tags/discuss/</link>
+    <description>Recent content in Discuss on A little change</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>mymusise</copyright>
+    <lastBuildDate>Sun, 03 Feb 2019 19:23:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://mymusise.github.io/tags/discuss/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>从另一个角度看深度神经网络</title>
+      <link>https://mymusise.github.io/post/dl/other_side_deep_network/</link>
+      <pubDate>Sun, 03 Feb 2019 19:23:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/dl/other_side_deep_network/</guid>
+      <description>0x00 你的网络怎么处理问题的 最开始尝试用DL去做NLP相关任务时候，时不时会想要怎么解析训练出来的网络是怎么去执行这些任务呢？看过NG老师课程的</description>
+    </item>
+    
+  </channel>
+</rss>

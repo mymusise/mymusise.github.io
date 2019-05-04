@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://mymusise.github.io/post/dl/other_side_deep_network/</loc>
+    <lastmod>2019-02-03T19:23:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mymusise.github.io/post/nlp/word_counter/</loc>
     <lastmod>2018-08-26T19:20:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -53,7 +60,7 @@
   
   <url>
     <loc>https://mymusise.github.io/</loc>
-    <lastmod>2018-08-26T19:20:14+08:00</lastmod>
+    <lastmod>2019-02-03T19:23:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -79,6 +86,20 @@
   </url>
   
   <url>
+    <loc>https://mymusise.github.io/tags/deep-learning/</loc>
+    <lastmod>2019-02-03T19:23:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/discuss/</loc>
+    <lastmod>2019-02-03T19:23:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://mymusise.github.io/tags/django/</loc>
     <lastmod>2017-12-16T23:19:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -87,7 +108,7 @@
   
   <url>
     <loc>https://mymusise.github.io/categories/dl/</loc>
-    <lastmod>2018-08-26T19:20:14+08:00</lastmod>
+    <lastmod>2019-02-03T19:23:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -157,7 +178,7 @@
   
   <url>
     <loc>https://mymusise.github.io/post/</loc>
-    <lastmod>2018-08-26T19:20:14+08:00</lastmod>
+    <lastmod>2019-02-03T19:23:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
