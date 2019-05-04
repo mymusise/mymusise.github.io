@@ -9,16 +9,20 @@ comment: false
 toc: false
 # reward: false
 mathjax: true
-expirydate: 2018-04-06
+# expirydate: 2019-09-06
 ---
 
 # 0x00 你的网络怎么处理问题的
 最开始尝试用DL去做NLP相关任务时候，时不时会想要怎么解析训练出来的网络是怎么去执行这些任务呢？看过NG老师课程的应该都知道`CNN`在图片的边缘识别上是怎么处理的，这样就比较容易理解在像`VGG`这样的深度网络中必定有那么几层是表示着要物体的边缘。但是对于NLP任务，要怎么解析`CNN`的处理过程，怎么可以确定深度网络中就会训练出类似于词性，命名实体等特征？
 
+<div style="text-align:center">
+    <img src ="/images/dl/other_side_deep_netword/head1.png" style="width:100%"/>
+</div>
+
 后来去年刚开始用DL做量化的时候，有个搞金融的朋友问我“你用DL训练出来的模型是怎么做策略的？” Emmm，说实话当时不知道怎么解析好，就只是从概率统计的角度上说了下。然后他问我都用了些什么指标，我说没有，只用了K线和买卖量的数据。后来我在想，训练过的网络中应该会有像EMA这样指标。为了验证这样的想法，下面就开始讨论下。
 
 
-# 0x01 从最简单的XOR开始
+# 0x01 从最简单的线性问题
 假设有这么个问题，现在有一批用户数据，如果用户是IOS用户，或者已经充值过的，都被划分为优质用户。定义$x_1$表示是否IOS，$x_2$表示是否充值过，取值为`[1, -1]`. 
 
 一般情况对于这样简单的划分，可以直接写一段code来实现这样的功能了。
@@ -45,114 +49,245 @@ $$H(x) = hardlims(
     \begin{bmatrix} x_1 \\\\ x_2 \end{bmatrix}
     - 1)$ 的理解，就是如果$x_1$等于1或者$x_2$等于1，就是A类，否则就是B类。
 
-上面的例子用用线性划分来解决似乎有点多此一举，但是实际当中需要处理的问题都比较复杂。比如实际上要真正评定用户的消费能力，除了跟用户渠道，购买力有关系，还会与活跃度，用户的交际圈，甚至是性别年龄等有关系。
-
-因此实际问题中，输入$X\begin{pmatrix} x_1 \\ x_2 \\ x_3 \\ ... \\ x_n \end{pmatrix}$的维度一般都会比较高，如果都用code来实现这些一条条的规则，要写好多好多code不说，维护更是困难，重点是很难写出综合最优的结果。但是用机器学习来处理就可以很好地解决这些问题。
-
-
-# 0x02 用神经网络拟合需要的特征
-
-再举个Quant里面的例子，传统做法是挑一些因子MA，ADR，BIAS等，把因子结合起来判断买入卖出信号。手动把这些因子写成规则来做量化，并不是个明智直选，当然很多经验老道的Quant大牛可以熟用某些因子来做交易，但是对于新手或者刚入门的来说最好就是机器代替我们去学习这些规则了。
-
-### 神经网络与特征
-假设现在输入层是过去n天的交易日K线数据（OHLC），现在试图用BP网络来学习这些规则来。先看一层隐藏层的BP网络结构：
 <div style="text-align:center">
-    <img src ="/images/dl/other_side_deep_netword/example2_1.png"/>
+    <img src ="/images/dl/other_side_deep_netword/example1_2.png"/>
+    <div><a>图1-2</a></div>
+</div>
+
+从实现来看,上面的例子用用线性划分来解决似乎有点多此一举, 直接一个`if...else...`就可以解决. 但是实际当中需要处理的问题都比较复杂,比如实际上要真正评定用户的消费能力，除了跟用户渠道，购买力有关系，还会与活跃度，用户的交际圈，甚至是性别年龄等有关系。
+
+因此实际问题中，输入$X\begin{pmatrix} x_1 \\ x_2 \\ x_3 \\ ... \\ x_n \end{pmatrix}$的维度一般都会比较高，用代码来实现这些规则的话就变成了这样:
+
+```python
+if rule1():
+    if rule2() and rule3():
+        do_something1()
+    elif rule4() or rule5():
+        if rule6() and rule7():
+            do_something2()
+    else:
+        do_something3()
+elif rule8():
+    if rule9():
+        do_something4()
+        if rule10():
+            do_something5()
+            if rule11() or rule12():
+                do_something6()
+                if rule20():
+                    do_something8()
+        elif rule13():
+            do_something7()
+```
+
+我们经常说的一些恶心业务代码就像是上面这种代码, 要写好多好多恶心的code不说, 维护起来更是困难，重点是很难写出综合最优的结果。但是用机器学习来把这个问题做成一个模型, 那就简洁清晰很多了.
+
+
+# 0x02 神经网络与特征空间
+
+我们把上面的例子再复杂化一些, 变成一个非线性问题:　对于平面上的点, 满足 $x_1 + x_2 > 0$ 并且 $x_1 - x_2 < 0$ 是A类, 满足 $x_1 + x_2 < 0$ 并且 $x_1 - x_2 > 0$ 是B类, 其他都是C类. 如图:
+
+<div style="text-align:center">
+    <img src ="/images/dl/other_side_deep_netword/example2_4.png" style="width:60%"/>
     <div><a>图2-1</a></div>
 </div>
 
-我们希望神经网络中在训练的时候能够自动学习出与MA，RSI，BIAS等因子类似的指标，假设如果网络可以实现这样的训练，假设H1学习到了MA因子来，那么$W_1$会是下图这样
+## 手工设计网络
 
-> 因子公式：
-
-> $MA = \frac{\sum_{1}^{n}Ci}{n}$
-
-> $RSI = \frac{N天内涨的天数}{N}$
-
-> $BIAS = \frac{当日收盘价 − N日内移动平均收盘价}{N日内移动平均收盘价} $
+现在我们想通过神经网络来拟合出这个分类问题来, 假设存在这样的一个网络能够实现这样的分类, 并像下面这样:
 
 <div style="text-align:center">
-    <img src ="/images/dl/other_side_deep_netword/example2_2.png"/>
-    <div><a>图2-2</a></div>
+    <img src ="/images/dl/other_side_deep_netword/example2_5.png" style="width:80%"/>
 </div>
 
-输入$X_j$维度是4*1，权重W_ij的维度是1*4，MA因子就是所有天数的收盘价格的求和平均数，因此就在权重$W_ij$里让 $收盘价格×\frac{1}{n}$, 其他因子都*0 忽略掉。就有 $W_1 X = MA$
+网络中的`Hidden layer 1`通过适当的参数设置，拟合出$x_1 + x_2$ 和 $x_1 - x_2$ 这两个特征。 `Hidden layer 2`通过适当的参数设置，拟合出$
+\begin{cases}
+x_1 + x_2 > 0 \\\\\\
+x_1 - x_2 < 0
+\end{cases}
+$
+$
+\begin{cases}
+x_1 + x_2 < 0 \\\\\\
+x_1 - x_2 > 0
+\end{cases}
+$
+这样的筛选条件
 
-对于MA这样的线性因子可以用BP网络构造出来，但是对于`RSI`这类的因子，BP网络就显得有点无能为力了。因为判断涨跌需要用 今天的收盘价$C_t$ - 昨天的收盘价$C_t-1$，这种时序相关的运算BP实现起来有点有心无力。
+从这个运算来看这个网络的确是可以解决上面这个非线性问题, 但是实际单中是否可以训练的到这样的网络呢? 答案是可以的, 下面来看下.
 
+## 实验验证
 
-## 多层神经网络拟合出来的因子
+首先我们先随机出一批数据并打上标签作为样本:
+```python
+x1, x2 = make_samples()
+labels = target_sample(x1, x2)
+```
+然后同样生成我们的预测数据
+```python
+p_x1, p_x2 = make_samples()
+predict_labels = target_sample(p_x1, p_x2)
+```
+然后定义我们的神经网络并进行训练
+```
+hidden_layer1 = tf.keras.layers.Dense(2, activation=tf.nn.tanh)
+hidden_layer2 = tf.keras.layers.Dense(2, activation=tf.nn.tanh)
+out_put_layer = tf.keras.layers.Dense(3, activation=tf.nn.softmax)
 
-在输入特征不变的情况下，如果想强行在BP网络中拟合出`RSI`因子也不是不可以，下面是一种比较蠢的方式，通过改造网络的结构：
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Flatten(input_shape=(2, )),
+    hidden_layer1,
+    hidden_layer2,
+    out_put_layer
+])
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+model.fit(train_x, labels, epochs=2000)
+```
+训练结束后我们的`accuracy`值基本接近$0.99$, 然后看一下我们的预测结果, 基本上也是没有分错类
 
 <div style="text-align:center">
-    <img src ="/images/dl/other_side_deep_netword/example2_3.png"/>
-    <div><a>图2-3</a></div>
+    <img src ="/images/dl/other_side_deep_netword/example2_7.png" style="width:60%"/>
 </div>
 
-通过耗用一个隐藏层中`N-1`个单元来计算的到每天的涨跌结果 $H(n) = hardlim({C}\_{n}-C\_{n-1})$ ，然后通过涨跌结果的到`RSI`。这里为了的到`RSI`这一个因子增加了$4(n-1)^2 + 3(n-1)$个参数，显然是不划算的。
+接着我们来看一下两个隐藏层和输出层的参数:
+```python
+for layer in [hidden_layer1, hidden_layer2, out_put_layer]:
+    [w, b] = layer.trainable_variables
+    print(f"w: {w.numpy()} \t b: {b.numpy()}")
 
-但是如果在输入层每天的K线数据中加入是否涨了$R\_{i}$ 作为特征，
-$X_i= \begin{bmatrix} O_i \\  H_i \\  L_i \\ C_i \\ R_i \end{bmatrix}^T$
-, 这样通过一个$W_i$就可以变相实现时序运算了
+>>> w: [[-2.4261363 -1.5472057]
+>>>  [ 2.1145093 -1.357698 ]] 	 b: [ 0.27367106 -0.01343301]
+>>> w: [[ 1.5651494 -1.3211046]
+>>>  [-1.723171   1.4522014]] 	 b: [0.9739141  0.74031043]
+>>> w: [[-3.013817    0.06987078  0.7952662 ]
+>>>  [ 2.1728668  -2.602164    1.4540561 ]] 	 b: [-0.53234714 -0.22513795  0.43315166]
+```
 
-$$ 
-\sum_{1}^{n} W_i X_i = \sum\_{1}^{n} \begin{bmatrix} 0 & 0 & 0 & 0 & \frac{1}{n} \end{bmatrix}
-        \begin{bmatrix} O_n \\\\ H_n \\\\ L_n \\\\ C_i \\\\ R_i \end{bmatrix}
-    = \sum\_{1}^{n} (R_i) = RSI
-$$
+我们可以发现第一层的参数 $
+\begin{bmatrix} -2.4261363 &  -1.5472057 \\\\ 2.1145093 & -1.357698 \end{bmatrix}
+\begin{bmatrix} 0.27367106 & -0.01343301 \end{bmatrix}$
+进行 
+$\frac{1}{2} w + \frac{1}{2} b$ 线性变换后, 就非常接近上面设计网络的第一层隐藏层的参数, 同样第二层隐藏层的参数跟我们设计的也是很接近.
 
-这里只是用了 5*n 个参数，所以如果增加有用的输入特征，会大大降低训练的成本。
+**结论**, 通过这个例子, 神经网络中的确能拟合出与$x_1-x_2$和$x_1+x_2$很接近的特征. 但是这也不能说明网络一定能拟合出我们想要的特征.
 
-如果企图用一个很深的网络去拟合这些特征，应该要提前考虑下实际任务可能需要网络拟合出什么样的特征来完成任务，对于需要的特征，这样的网络是否有几率拟合出来，当然这些都需要对训练任务有一定的深入的认识才能发现。否则这个很深的网络可能什么都学习不出来或者这样的学习会花很大的成本。
+## 逆向问题
 
-就像上面几个例子中，OHLC这四个特征也只用到了一个，如果希望网络拟合出来的因子跟OHL毫无关系，就可以去掉了。但是实际上会希望网络拟合出更多的因子比如`OBV`，而且计算`OBV`还需要加上当天的交易量`V`作为特征。
+现在我们反过来思考这个问题, 现在我们有一批数据, 分了A, B, C三类, 也就是 上面 `图2-1` 那样的分布, 但是现在并不知道他的分类规则, 也就是之前图中的边界. 现在我们想通过训练模型来发现这批数据的分类规则，我们通过画图观察发现, 的确存在 $x_1 + x_2 = 0$ 和 $x_1 - x_2 = 0$这两条边界能把数据区分开, 但是我们并不清楚网络能否拟合出这样的特征出来, 也不清楚具体怎么样结构的网络才会有效. 
 
+### 实验1
 
+不过我们一般都是一边实验一边摸索, 先用一层隐藏层试试看, 隐藏层包含两个单元
+```
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Flatten(input_shape=(2, )),
+    tf.keras.layers.Dense(2, activation=tf.nn.tanh)
+    tf.keras.layers.Dense(3, activation=tf.nn.softmax)
+])
+```
 
-## 根据目的，指导神经网络的设计，多少层，维度大概多高，以及什么样的结构，所以会有CNN，RNN，Attention等网络的出现
-
-上一个例子里当天的涨跌结果 $y=f(W\_{t}X_t+W\_{t-1}X\_{t-1})$ ，如果把这个当成一阶因子，那么像上面提及到的`RSI`就是二阶因子。
-
-下面再看一个例子，在Quant里，如果出现: "今天是涨的，昨天也是涨的，但是前天是跌的，以及更前面的三天都是跌"，就认为出现谷底了。下面用这个网络来实现
+这样的网络, 最后训练出来的结果 `accuracy` 只有$0.7333$
 
 <div style="text-align:center">
-    <img src ="/images/dl/other_side_deep_netword/example3_1.png"/>
-    <div><a>图3-1</a></div>
+    <img src ="/images/dl/other_side_deep_netword/result1.png" style="width:60%"/>
 </div>
 
-<!-- 可能会想为什么不直接在第二层隐藏层直接计算所有需要的天数，如果结果顺序无关，是可以一层直接计算出来。但是任务是与顺序相关的，而且每判断一次下个状态都需要激活函数来判断，所以BP网络实现这样的逻辑至少还需要三层隐藏层。 -->
+从分类结果来看， 似乎只是通过$x_2$维度来进行了分类，然后我们再看下隐藏层的参数
+```
+w: [[-0.03244739 -0.09983221]
+ [ 1.0642205   2.0832403 ]] 	 b: [-0.71257067  0.2465051 ]
+```
+$x_1$相对于$x_2$的权重少了两个量级， $x_1$的权重几乎为0. 这么看来2个单元的隐藏层并不能拟合出这个分类规律来。
 
-上面这个网络最后的确可以找出结果来，显然这是个错误示范，对于找到“涨涨跌跌”这样的运算，本质上是把一阶的`涨/跌`结果做了一次线性运算，所以后面三个隐藏层的内容,实际上都在一个空间里，“涨涨跌跌”也是个二阶因子。最后问题是可以通过一次计算的到:
-
-$$ y = hardlim(UX + b) = hardlim( \begin{bmatrix} 1 & 1 & -1 & -1 \end{bmatrix} \begin{bmatrix} r_1 \\\\ r_2 \\\\ r_3 \\\\ r_4 \end{bmatrix} - 1.9)$$ 
-
-$r_i$取值为[1, -1],`1`代表涨`-1`代表跌,`U`是期望的顺序。
-
+### 实验2
+下面换成4个单元的隐藏层测试一下：
+```
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Flatten(input_shape=(2, )),
+    tf.keras.layers.Dense(4, activation=tf.nn.tanh)
+    tf.keras.layers.Dense(3, activation=tf.nn.softmax)
+])
+```
+最后训练出来的`accuracy`非常接近 $0.99$， 从图形来看基本把边界拟合出来了
 
 <div style="text-align:center">
-    <img src ="/images/dl/other_side_deep_netword/example3_2.png"/>
-    <div><a>图3-2</a></div>
+    <img src ="/images/dl/other_side_deep_netword/result2.png" style="width:60%"/>
 </div>
 
-在设计神经网络时候，也并非越深越好，如果需要的特征在前几层就能拟合到，层数越多只会增加训练成本。当然很多情况下我们并不清楚需要些什么特征，而是希望企图通过一个很深的网络拟合出所需要的特征来。
+从隐藏层中时候拟合出了$x_1-x_2$和$x_1+x_2$这样的特征？从输出的结果来看，的确也存在一对类似的特征
 
+<div style="text-align:center">
+    <img src ="/images/dl/other_side_deep_netword/result3.png" style="width:60%"/>
+</div>
 
-对于时序任务，现在现在常用的都是RNN。最早期RNN被提出来之时，主要用来解决在处理时序数据的时像`图3-1`这些臃肿结构，甚至可以折叠上千层原来结构的网络。
+但是现在我们最后的问题是
+$
+\begin{cases}
+x_1 + x_2 > 0 \\\\\\
+x_1 - x_2 < 0
+\end{cases}
+$
+$
+\begin{cases}
+x_1 + x_2 < 0 \\\\\\
+x_1 - x_2 > 0
+\end{cases}
+$
+这样的筛选条件
 
-<!-- 那么这时用到的运算就变成了 $y_i=f(W_iXi + Uy\_{i-1})$，假设计算涉及到时序长度为M，则需要M-1层隐藏层。 -->
+从剩下的两个单元的参数来看， 一层隐藏层很难直观地表现出上面的筛选条件，他是怎么做到把数据分类开的，我们也很难直观地理解. 但是我们可以肯定的是，网络他已经把边界学习出来. 实际上网络中的每个隐藏层通过激活函数，把输入特征映射到更加高的维度，类似于SVM的核函数，在当前维度数据线性不可分，但如果把数据映射到更高维度的空间，数据就会变得线性可分。
 
+### 实验3
 
-## 怎么样才更容易拟合出这些有用的特征
+为了方便可视化，我们把隐藏层单元改成3个进行实验：
+```
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Flatten(input_shape=(2, )),
+    tf.keras.layers.Dense(3, activation=tf.nn.tanh)
+    tf.keras.layers.Dense(3, activation=tf.nn.softmax)
+])
+```
 
+最后训练出来的`accuracy`非常接近 $0.99$，隐藏层各参数如下：
+```
+w: [[-2.4996152 -3.0480654 -0.552722 ]
+ [ 2.4173682 -3.100619   0.9217639]] 	 b: [-0.04109955 -0.06980375 -0.61598945]
+```
+我们已隐藏层的输出作为基，把数据投影到三维空间上：
 
+<div style="text-align:center">
+    <img src ="/images/dl/other_side_deep_netword/result4.gif"/>
+    <div><a>图2-1</a></div>
+</div>
 
-### 关于Gradient和局部最优问题
+发现在映射过后的数据是线性可分的，在这里就是存在一个平面， 能将A类数据（红色）和其他数据区分开，也存在另一个平面，能将B类数据（绿色）和其他数据区分开。
 
+结论，在这个问题上，人为观察数据可以发现出
+$
+\begin{cases}
+x_1 + x_2 > 0 \\\\\\
+x_1 - x_2 < 0
+\end{cases}
+$
+$
+\begin{cases}
+x_1 + x_2 < 0 \\\\\\
+x_1 - x_2 > 0
+\end{cases}
+$
+这样的规则，但是对于神经网络而言，他的操作跟人类是不一样的（#为什么？#），就像人为了飞行，造出来的飞机飞行原理跟鸟类是不同的，神经网络要学会分类，靠的是把数据投影一个高维空间，一个存在超平面把数据划分开的空间来达到分类的效果。
 
+### 输出层与超平面
 
-## 用Gradient来说明网络并不一定有效，最优点被局部给包围，mini batch有助跳出局部，遇到平坦区。learning rate 的取值的合适范围
+上面一直在讨论的是隐藏层，输出层作为网络的最后一层，输出便是分类的结果。按照上面所说隐藏层把数据投影到高维空间中，并存在一个超平面可以划分数据。超平面作为分类的界限，输出层也是网络最后分类的依据，那么输出层与超平面是否存在关系？为了验证，下面尝试把输出层的参数做为平面函数的参数，在空间中画出来。
 
+<div style="text-align:center">
+    <img src ="/images/dl/other_side_deep_netword/result5.png"/>
+</div>
+
+最后我们惊奇地发现，用输出层的参数作为超平面函数画出来的平面，刚好是能把数据集区分开的平面。
 
 
 <script type="text/x-mathjax-config">
