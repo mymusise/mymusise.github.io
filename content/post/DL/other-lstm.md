@@ -9,7 +9,7 @@ comment: false
 toc: false
 # reward: false
 mathjax: true
-expirydate: 2018-04-06
+# expirydate: 2018-04-06
 ---
 
 前段时间用RNN做了一些实验，这些天总结下在`TensorFlow`里面看到的一些新奇的RNN模型，具体参考[`tf.contrib.rnn`](https://www.tensorflow.org/versions/master/api_docs/python/tf/contrib/rnn)
