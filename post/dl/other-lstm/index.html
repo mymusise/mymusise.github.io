@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>几个LSTM的变种 - A little change</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="mymusise" />
+  <meta name="description" content="前段时间用RNN做了一些实验，这些天总结下在TensorFlow里面看到的一些新奇的RNN模型，具体参考tf.contrib.rnn 主要介绍" />
+
+  <meta name="keywords" content="mymusise, blog" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://mymusise.github.io/post/dl/other-lstm/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.min.css?v=2.6.1" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="几个LSTM的变种" />
+<meta property="og:description" content="前段时间用RNN做了一些实验，这些天总结下在TensorFlow里面看到的一些新奇的RNN模型，具体参考tf.contrib.rnn 主要介绍" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mymusise.github.io/post/dl/other-lstm/" />
+
+
+
+<meta property="article:published_time" content="2018-06-16T19:20:14&#43;08:00"/>
+<meta property="article:modified_time" content="2018-06-16T19:20:14&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="几个LSTM的变种">
+<meta itemprop="description" content="前段时间用RNN做了一些实验，这些天总结下在TensorFlow里面看到的一些新奇的RNN模型，具体参考tf.contrib.rnn 主要介绍">
+
+
+<meta itemprop="dateModified" content="2018-06-16T19:20:14&#43;08:00" />
+<meta itemprop="wordCount" content="936">
+
+
+
+<meta itemprop="keywords" content="Tensorflow,RNN,LSTM,Deep learing,Note," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="几个LSTM的变种"/>
+<meta name="twitter:description" content="前段时间用RNN做了一些实验，这些天总结下在TensorFlow里面看到的一些新奇的RNN模型，具体参考tf.contrib.rnn 主要介绍"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Mymusise</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">列表</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Mymusise</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/post/">列表</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">几个LSTM的变种</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-06-16 </span>
+        <div class="post-category">
+            <a href="/categories/dl/">DL</a>
+          </div>
+        
+      </div>
+    </header>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<p>前段时间用RNN做了一些实验，这些天总结下在<code>TensorFlow</code>里面看到的一些新奇的RNN模型，具体参考<a href="https://www.tensorflow.org/versions/master/api_docs/python/tf/contrib/rnn"><code>tf.contrib.rnn</code></a></p>
+
+<h1 id="主要介绍下面几种">主要介绍下面几种：</h1>
+
+<ul>
+<li><strong>Grid LSTM</strong> <a href="https://arxiv.org/abs/1507.01526">
+Grid Long Short-Term Memory</a></li>
+<li><strong>Phased LSTM</strong> <a href="https://arxiv.org/pdf/1610.09513v1.pdf">Phased LSTM: Accelerating Recurrent Network
+Training for Long or Event-based Sequences</a></li>
+<li><strong>G-LSTM</strong> <a href="https://arxiv.org/abs/1703.10722">Factorization tricks for LSTM networks</a></li>
+</ul>
+
+<h2 id="0x01-grid-lstm">0x01: Grid LSTM</h2>
+
+<p>第一眼看到它的模型结构图的时候还以为是个类似<code>Stacked LSTM</code>，但是认真看完他的模型结构后，发现这可是截然不同的新东西。如果说<code>LSTM</code>的结构是横躺着的话，那么它的结构就是可以竖直起来也可以横躺着的。我们知道在标准的<code>LSTM</code>在时间序上会把上一层的memory传递到下一层去，但是在垂直方向上并没有把memory传下去在<code>Stacked LSTM</code>这种结构上。</p>
+
+<p>它每个cell的2-D的结构图如下：
+<div style="text-align:center"><img src ="/images/dl/grid_lstm_f1.png" /></div></p>
+
+<p>它的整体结构跟<code>Stacked LSTM</code>对比如下：
+<div style="text-align:center"><img src ="/images/dl/grid_lstm_f2.png" /></div></p>
+
+<p>从上图对比可以看出，不同与<code>Stacked LSTM</code>，2-D的<code>Grid LSTM</code>横竖结构都是一样的，memory经过计算后不止在横向上传递，也在垂直方向传递。</p>
+
+<p>那么作者为什么要这样设计呢：</p>
+
+<ul>
+<li>首先，从作者的原文可以看到<code>Grid LSTM</code>在字符预测，翻译和MNIST分类这些任务中表现都有所提升</li>
+<li>从<code>Highway Network</code>借鉴过来的结构，同样计算的时候可以在垂直方向通过<code>Gate</code>来控制那些layer可以跳过，当网络deep到一定程度的时候，提高稳定性同时还能加快收敛速度。</li>
+</ul>
+
+<h2 id="0x02-phased-lstm">0x02: Phased LSTM</h2>
+
+<p>这里有它的演讲视频<del><a href="https://www.youtube.com/watch?v=ZMyVR3nwgAQ&amp;t=18s">Phased LSTM: Accelerating Recurrent Network Training for Long or Event-based Sequences</a></del> (视频好像打不开了= =: 2019-02-09)</p>
+
+<p>不过大家可以去看它的<a href="http://papers.nips.cc/paper/6310-phased-lstm-accelerating-recurrent-network-training-for-long-or-event-based-sequences.pdf">论文</a></p>
+
+<p>从视频介绍上来看<code>Phased LSTM</code>解决的是输入的不同维度的特征周期不一致的问题，视频中介绍到在IOT上的应用。不同的传感器收集的数据周期不一样，比如距离传感器时刻收集着信号，但是像湿度传感器这类只有触发了才会收集到数据。</p>
+
+<div style="text-align:center"><img src ="/images/dl/phased_lstm_f1.png" /></div>
+
+<p>在这之前我们一般做法都是把不同周期的特征直接放在一块处理，希望网络能自己学习出来并区分。<code>Phased LSTM</code>的不同之处就是加入了一个时间轴的概念把这些不同周期的Features区分开，通过这样的定义：</p>
+
+<p>$$ \phi_t = \frac{(t-s)mod\tau}{\tau} $$
+(t表示当前的时刻，s是相位偏移，$\tau$ 是周期)</p>
+
+<p>然后<code>Phased LSTM</code> 是这样定义了Time Gate function的:</p>
+
+<div style="text-align:center"><img src ="/images/dl/phased_lstm_f2.png" /></div>
+
+<p>更多细节可以参考论文。</p>
+
+<p>虽然博主没有在工程中用到过<code>Phased LSTM</code>，但是对于处理不同周期的数据任务有了新的思路。</p>
+
+<h2 id="0x03-g-lstm">0x03: G-LSTM</h2>
+
+<p><strong>TODO</strong></p>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">mymusise</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-06-16</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/wechat_pay.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/images/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/tensorflow/">Tensorflow</a>
+          
+          <a href="/tags/rnn/">RNN</a>
+          
+          <a href="/tags/lstm/">LSTM</a>
+          
+          <a href="/tags/deep-learing/">Deep learing</a>
+          
+          <a href="/tags/note/">Note</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/nlp/word_counter/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">几种词向量的实现</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/post/ml/svm/">
+            <span class="next-text nav-default">SVM-支持向量机</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:mymusise1@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/mymusise" class="iconfont icon-github" title="github"></a>
+  <a href="https://mymusise.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2017 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">mymusise</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.6.1"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+
+
+</body>
+</html>

@@ -17,6 +17,13 @@
   </url>
   
   <url>
+    <loc>https://mymusise.github.io/post/dl/other-lstm/</loc>
+    <lastmod>2018-06-16T19:20:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://mymusise.github.io/post/ml/svm/</loc>
     <lastmod>2018-04-26T20:19:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -86,6 +93,13 @@
   </url>
   
   <url>
+    <loc>https://mymusise.github.io/tags/deep-learing/</loc>
+    <lastmod>2018-06-16T19:20:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://mymusise.github.io/tags/deep-learning/</loc>
     <lastmod>2019-02-03T19:23:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -123,6 +137,13 @@
   <url>
     <loc>https://mymusise.github.io/tags/linear/</loc>
     <lastmod>2018-04-11T20:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/lstm/</loc>
+    <lastmod>2018-06-16T19:20:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -184,6 +205,13 @@
   </url>
   
   <url>
+    <loc>https://mymusise.github.io/tags/rnn/</loc>
+    <lastmod>2018-06-16T19:20:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://mymusise.github.io/tags/sklearn/</loc>
     <lastmod>2018-04-26T20:19:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -200,6 +228,13 @@
   <url>
     <loc>https://mymusise.github.io/tags/</loc>
     <lastmod>2017-12-16T23:19:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mymusise.github.io/tags/tensorflow/</loc>
+    <lastmod>2018-06-16T19:20:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

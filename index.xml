@@ -31,6 +31,15 @@
     </item>
     
     <item>
+      <title>几个LSTM的变种</title>
+      <link>https://mymusise.github.io/post/dl/other-lstm/</link>
+      <pubDate>Sat, 16 Jun 2018 19:20:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/dl/other-lstm/</guid>
+      <description>前段时间用RNN做了一些实验，这些天总结下在TensorFlow里面看到的一些新奇的RNN模型，具体参考tf.contrib.rnn 主要介绍</description>
+    </item>
+    
+    <item>
       <title>SVM-支持向量机</title>
       <link>https://mymusise.github.io/post/ml/svm/</link>
       <pubDate>Thu, 26 Apr 2018 20:19:14 +0800</pubDate>

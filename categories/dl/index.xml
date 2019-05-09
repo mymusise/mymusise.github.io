@@ -30,5 +30,14 @@
       <description>相关理论 要进行文本分析，首先得要把文本特征化，转成程序可以处理的数据格式。特征化一般要把文本切分成词的形式，所以处理文本时都有一部分分词的工</description>
     </item>
     
+    <item>
+      <title>几个LSTM的变种</title>
+      <link>https://mymusise.github.io/post/dl/other-lstm/</link>
+      <pubDate>Sat, 16 Jun 2018 19:20:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/dl/other-lstm/</guid>
+      <description>前段时间用RNN做了一些实验，这些天总结下在TensorFlow里面看到的一些新奇的RNN模型，具体参考tf.contrib.rnn 主要介绍</description>
+    </item>
+    
   </channel>
 </rss>

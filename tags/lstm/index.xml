@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lstm on A little change</title>
+    <link>https://mymusise.github.io/tags/lstm/</link>
+    <description>Recent content in Lstm on A little change</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>mymusise</copyright>
+    <lastBuildDate>Sat, 16 Jun 2018 19:20:14 +0800</lastBuildDate>
+    
+	<atom:link href="https://mymusise.github.io/tags/lstm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>几个LSTM的变种</title>
+      <link>https://mymusise.github.io/post/dl/other-lstm/</link>
+      <pubDate>Sat, 16 Jun 2018 19:20:14 +0800</pubDate>
+      
+      <guid>https://mymusise.github.io/post/dl/other-lstm/</guid>
+      <description>前段时间用RNN做了一些实验，这些天总结下在TensorFlow里面看到的一些新奇的RNN模型，具体参考tf.contrib.rnn 主要介绍</description>
+    </item>
+    
+  </channel>
+</rss>
