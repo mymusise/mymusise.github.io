@@ -258,3 +258,9 @@ array([[[0.7414243 , 0.07747948, 0.60920155, ..., 0.46979737,
         [0.3502736 , 0.988209  , 0.85835266, ..., 0.626845  ,
          0.56388843, 0.13658428]]], dtype=float32)>
 ```
+
+
+# 其他
+
+- [tensorflow_datasets.features.text.SubwordTextEncoder](https://www.tensorflow.org/datasets/api_docs/python/tfds/features/text/SubwordTextEncoder#build_from_corpus)
+- [bert as service](https://github.com/hanxiao/bert-as-service)
