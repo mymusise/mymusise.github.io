@@ -16,19 +16,21 @@ mathjax: true
 
 ---
 
-# 前言
+# 0. 前言
 
 `OpenAI` 发表 `GPT2` 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部分都是用Pytorch实现的，虽然Github上已经有几个用TF训练好的模型，但感觉代码写的太复杂，不适合上手，要么就是还是`TF1.X`版本的。作为TF2.0的少年，之前了解过 Huggingface 团队出了个 Transformer 库，里面也包含了GPT2模型，看了下文档整体调用也很简洁，所以决定用 Transformer 搞一个。
 
 最终实现代码： [mymusise/gpt2-quickly](https://github.com/mymusise/gpt2-quickly)
 
-# 踩坑之旅
+想‘坐享其成’的同学可以直接跳到末尾： [Example](#一些例子)
 
-## - TF的支持
+# 1. 踩坑之旅
+
+## 1.1. TF的支持
 
 🤗 `Transformer` 默认用的是 `Pytorch` 的API，而且从文档上可以体现出团队更倾向 `Pytorch` ，部分API暂时还不支持 `TF` 版本的，比如 `TextDataset` 。不过官方给出可以通过改写 `Dataset` 的[ `set_format` ](https://github.com/huggingface/transformers/issues/8190)方法，来实现 `TextDataset` 或者 `LineByLineTextDataset` 的功能。
 
-## - Train/Finetune的文档
+## 1.2. Train/Finetune的文档
 
 如果用keras的API去训练 `TFGPT2LMHeadModel` ，loss是个坑。看官网其他model的例子，以为直接compile就可以了。
 
@@ -54,9 +56,9 @@ mathjax: true
 
 不知道为什么，GPT2Tokenizer好像不支持中文的，（补充） -->
 
-# 正文
+# 2. 正文
 
-## 数据集
+## 2.1. 数据集
 
 作为测试，可以先从 [ `chinese-poetry` ](https://github.com/chinese-poetry/chinese-poetry) download 几篇诗词过来。当前项目采用rawtext的形式，对于json格式的数据可能需要转换下格式。转化后的数据例子： [test/raw.txt](https://github.com/mymusise/gpt2-quickly/blob/main/dataset/test/raw.txt)
 
@@ -68,7 +70,7 @@ $ head -n 3 dataset/test/raw.txt
 再赠 唐诗：【弄玉有夫皆得道，刘纲兼室尽登仙。君能仔细窥朝露，须逐云车拜洞天。】
 ```
 
-## Vocabulary
+## 2.2. Vocabulary
 
 GPT2官方给出的字典大小为50257，如果只是进行小样本测试，可以通过[ `huggingface/Tokenizers` ](https://github.com/huggingface/tokenizers) 构建自己的字典，一般小样本的字典集合大小都在1000左右的范围内，这样可以打打缩小模型维度，方便我们测试。以 `BertWordPieceTokenizer` 为例：
 
@@ -83,7 +85,7 @@ tokenizer.save_model('path/to/save/')
 
 实际上，现在大部分中文语言模型，相对于Google的21128大小的字典，我发现大家一般会选[ `CLUE` ](https://github.com/CLUEbenchmark/CLUEPretrainedModels)提供的8021大小的字典。
 
-## Tokenizer
+## 2.3. Tokenizer
 
 Tokenization之前，我们需要对数据进行切片预处理，方法参考了[gpt2-ml](https://github.com/imcaspar/gpt2-ml)的预处理过程。我们知道GPT2最大支持的输入文本是1024长度，假设先设定每个sample的大小是64（1024同样道理），以 `。？！` 标点符号为分界，对文本进行分句。并每个sample加入上一个sample的最后一句。按照这种处理方式，上面三行样例就变成：
 
@@ -115,7 +117,7 @@ $ ls dataset/train
 data_0.pickle   data_1.pickle  data_2.pickle
 ```
 
-## Model initialization
+## 2.4. Model initialization
 
 这个没什么好说的， `Transformer` 都给包装好了，先定义下模型的参数:
 
@@ -157,7 +159,7 @@ model.compile(
 )
 ```
 
-## Train
+## 2.5. Train
 
 训练前可以自定义个callback，每个epochs结束后保存下模型
 
@@ -176,7 +178,7 @@ model.fit(
 )
 ```
 
-## 一些例子
+## 2.6. 一些例子
 
 - 你可以在colab上尝试整个训练过程: [gpt2_quickly.ipynb](https://colab.research.google.com/github/mymusise/gpt2-quickly/blob/main/examples/gpt2_quickly.ipynb)
 - 一个还在测试中的mediun量级的GPT2中文模型: [gpt2_medium_chinese.ipynb](https://colab.research.google.com/github/mymusise/gpt2-quickly/blob/main/examples/gpt2_medium_chinese.ipynb)
