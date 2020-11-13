@@ -178,7 +178,7 @@ model.fit(
 )
 ```
 
-## 2.6. 一些例子
+## 一些例子
 
 - 你可以在colab上尝试整个训练过程: [gpt2_quickly.ipynb](https://colab.research.google.com/github/mymusise/gpt2-quickly/blob/main/examples/gpt2_quickly.ipynb)
 - 一个还在测试中的mediun量级的GPT2中文模型: [gpt2_medium_chinese.ipynb](https://colab.research.google.com/github/mymusise/gpt2-quickly/blob/main/examples/gpt2_medium_chinese.ipynb)
