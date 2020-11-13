@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tensorflow on A little change</title>
-    <link>https://mymusise.github.io/tags/tensorflow/</link>
-    <description>Recent content in Tensorflow on A little change</description>
+    <title>Gpt2 on A little change</title>
+    <link>https://mymusise.github.io/tags/gpt2/</link>
+    <description>Recent content in Gpt2 on A little change</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>mymusise</copyright>
     <lastBuildDate>Tue, 03 Nov 2020 19:23:14 +0800</lastBuildDate>
     
-	<atom:link href="https://mymusise.github.io/tags/tensorflow/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://mymusise.github.io/tags/gpt2/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       
       <guid>https://mymusise.github.io/post/dl/transformer_example/</guid>
       <description>前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部分</description>
-    </item>
-    
-    <item>
-      <title>几个LSTM的变种</title>
-      <link>https://mymusise.github.io/post/dl/other-lstm/</link>
-      <pubDate>Sat, 16 Jun 2018 19:20:14 +0800</pubDate>
-      
-      <guid>https://mymusise.github.io/post/dl/other-lstm/</guid>
-      <description>前段时间用RNN做了一些实验，这些天总结下在TensorFlow里面看到的一些新奇的RNN模型，具体参考tf.contrib.rnn 主要介绍</description>
     </item>
     
   </channel>
