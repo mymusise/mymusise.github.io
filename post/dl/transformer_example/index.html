@@ -17,7 +17,7 @@
 
 
 <meta name="author" content="mymusise" />
-  <meta name="description" content="前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部分" />
+  <meta name="description" content="0. 前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部" />
 
   <meta name="keywords" content="mymusise, blog" />
 
@@ -43,7 +43,7 @@
 <link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
 
 <meta property="og:title" content="用Transformer构建自己的GPT2模型" />
-<meta property="og:description" content="前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部分" />
+<meta property="og:description" content="0. 前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mymusise.github.io/post/dl/transformer_example/" />
 
@@ -64,19 +64,19 @@
 
 
 <meta itemprop="name" content="用Transformer构建自己的GPT2模型">
-<meta itemprop="description" content="前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部分">
+<meta itemprop="description" content="0. 前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部">
 
 
 <meta itemprop="datePublished" content="2020-11-03T19:23:14&#43;08:00" />
 <meta itemprop="dateModified" content="2020-11-03T19:23:14&#43;08:00" />
-<meta itemprop="wordCount" content="2041">
+<meta itemprop="wordCount" content="2207">
 
 
 
 <meta itemprop="keywords" content="GPT2,Tensorflow,Transformer," />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="用Transformer构建自己的GPT2模型"/>
-<meta name="twitter:description" content="前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部分"/>
+<meta name="twitter:description" content="0. 前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -149,19 +149,21 @@
     <div class="post-content">
       
 
-<h1 id="前言">前言</h1>
+<h1 id="0-前言">0. 前言</h1>
 
 <p><code>OpenAI</code> 发表 <code>GPT2</code> 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部分都是用Pytorch实现的，虽然Github上已经有几个用TF训练好的模型，但感觉代码写的太复杂，不适合上手，要么就是还是<code>TF1.X</code>版本的。作为TF2.0的少年，之前了解过 Huggingface 团队出了个 Transformer 库，里面也包含了GPT2模型，看了下文档整体调用也很简洁，所以决定用 Transformer 搞一个。</p>
 
 <p>最终实现代码： <a href="https://github.com/mymusise/gpt2-quickly">mymusise/gpt2-quickly</a></p>
 
-<h1 id="踩坑之旅">踩坑之旅</h1>
+<p>想‘坐享其成’的同学可以直接跳到末尾： <a href="#一些例子">Example</a></p>
 
-<h2 id="tf的支持">- TF的支持</h2>
+<h1 id="1-踩坑之旅">1. 踩坑之旅</h1>
+
+<h2 id="1-1-tf的支持">1.1. TF的支持</h2>
 
 <p>🤗 <code>Transformer</code> 默认用的是 <code>Pytorch</code> 的API，而且从文档上可以体现出团队更倾向 <code>Pytorch</code> ，部分API暂时还不支持 <code>TF</code> 版本的，比如 <code>TextDataset</code> 。不过官方给出可以通过改写 <code>Dataset</code> 的<a href="https://github.com/huggingface/transformers/issues/8190"> <code>set_format</code> </a>方法，来实现 <code>TextDataset</code> 或者 <code>LineByLineTextDataset</code> 的功能。</p>
 
-<h2 id="train-finetune的文档">- Train/Finetune的文档</h2>
+<h2 id="1-2-train-finetune的文档">1.2. Train/Finetune的文档</h2>
 
 <p>如果用keras的API去训练 <code>TFGPT2LMHeadModel</code> ，loss是个坑。看官网其他model的例子，以为直接compile就可以了。</p>
 
@@ -185,9 +187,9 @@
 
 不知道为什么，GPT2Tokenizer好像不支持中文的，（补充） -->
 
-<h1 id="正文">正文</h1>
+<h1 id="2-正文">2. 正文</h1>
 
-<h2 id="数据集">数据集</h2>
+<h2 id="2-1-dataset">2.1. Dataset</h2>
 
 <p>作为测试，可以先从 <a href="https://github.com/chinese-poetry/chinese-poetry"> <code>chinese-poetry</code> </a> download 几篇诗词过来。当前项目采用rawtext的形式，对于json格式的数据可能需要转换下格式。转化后的数据例子： <a href="https://github.com/mymusise/gpt2-quickly/blob/main/dataset/test/raw.txt">test/raw.txt</a></p>
 
@@ -198,9 +200,11 @@ $ head -n 3 dataset/test/raw.txt
 再赠 唐诗：【弄玉有夫皆得道，刘纲兼室尽登仙。君能仔细窥朝露，须逐云车拜洞天。】
 </code></pre>
 
-<h2 id="vocabulary">Vocabulary</h2>
+<h2 id="2-2-vocabulary">2.2. Vocabulary</h2>
 
-<p>GPT2官方给出的字典大小为50257，如果只是进行小样本测试，可以通过<a href="https://github.com/huggingface/tokenizers"> <code>huggingface/Tokenizers</code> </a> 构建自己的字典，一般小样本的字典集合大小都在1000左右的范围内，这样可以打打缩小模型维度，方便我们测试。以 <code>BertWordPieceTokenizer</code> 为例：</p>
+<p>GPT2用的是BPE算法，官方给出的字典大小为50257，并没有包括中文。而且按照原论文的编码方法，只用到了基础ASCII表上的256个字符，这种方法用来编码中文语料显然是不合理的。而且目前在网上没有找到按这种BPE编码比较权威的中文字典，所以下面的例子用我们就直接用Bert的WordPiece来进行举例了。</p>
+
+<p>如果你只是进行小样本测试，可以通过<a href="https://github.com/huggingface/tokenizers"> <code>huggingface/Tokenizers</code> </a> 构建自己的字典，一般小样本的字典集合大小都在1000左右的范围内，这样可以打打缩小模型维度，方便我们测试。以 <code>BertWordPieceTokenizer</code> 为例：</p>
 
 <pre><code class="language-python">from tokenizers import BertWordPieceTokenizer
 
@@ -210,9 +214,9 @@ tokenizer.train(files=['your raw text file'],
 tokenizer.save_model('path/to/save/')
 </code></pre>
 
-<p>实际上，现在大部分中文语言模型，相对于Google的21128大小的字典，我发现大家一般会选<a href="https://github.com/CLUEbenchmark/CLUEPretrainedModels"> <code>CLUE</code> </a>提供的8021大小的字典。</p>
+<p>笔者发现，现在大部分开源的中文语言模型中，相对于Google的21128大小的字典，我发现大家一般会选<a href="https://github.com/CLUEbenchmark/CLUEPretrainedModels"> <code>CLUE</code> </a>提供的8021大小的字典。</p>
 
-<h2 id="tokenizer">Tokenizer</h2>
+<h2 id="2-3-tokenizer">2.3. Tokenizer</h2>
 
 <p>Tokenization之前，我们需要对数据进行切片预处理，方法参考了<a href="https://github.com/imcaspar/gpt2-ml">gpt2-ml</a>的预处理过程。我们知道GPT2最大支持的输入文本是1024长度，假设先设定每个sample的大小是64（1024同样道理），以 <code>。？！</code> 标点符号为分界，对文本进行分句。并每个sample加入上一个sample的最后一句。按照这种处理方式，上面三行样例就变成：</p>
 
@@ -241,7 +245,7 @@ $ ls dataset/train
 data_0.pickle   data_1.pickle  data_2.pickle
 </code></pre>
 
-<h2 id="model-initialization">Model initialization</h2>
+<h2 id="2-4-model-initialization">2.4. Model initialization</h2>
 
 <p>这个没什么好说的， <code>Transformer</code> 都给包装好了，先定义下模型的参数:</p>
 
@@ -281,7 +285,7 @@ model.compile(
 )
 </code></pre>
 
-<h2 id="train">Train</h2>
+<h2 id="2-5-train">2.5. Train</h2>
 
 <p>训练前可以自定义个callback，每个epochs结束后保存下模型</p>
 
@@ -401,7 +405,7 @@ model.fit(
     &copy; 
     
       2017 - 
-    2020
+    2021
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

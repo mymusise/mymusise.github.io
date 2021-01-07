@@ -18,7 +18,7 @@
       <pubDate>Tue, 03 Nov 2020 19:23:14 +0800</pubDate>
       
       <guid>https://mymusise.github.io/post/dl/transformer_example/</guid>
-      <description>前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部分</description>
+      <description>0. 前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部</description>
     </item>
     
     <item>
@@ -100,6 +100,15 @@
       
       <guid>https://mymusise.github.io/post/repair_after_delete_python/</guid>
       <description>0x00 故事的开始，老张一不小心手抖，把Ubuntu系统自带的python 用apt-get给 Remove了，然后在remove的时候会自动带上所有</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://mymusise.github.io/post/nlp/how_to_generate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://mymusise.github.io/post/nlp/how_to_generate/</guid>
+      <description>简介 最近几年，由于像OpenAI著名的GPT2这种基于百万级web数据训练出来的大型Transformer模型兴起，开放领域的语言模型越来越</description>
     </item>
     
   </channel>

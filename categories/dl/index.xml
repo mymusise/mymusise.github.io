@@ -18,7 +18,7 @@
       <pubDate>Tue, 03 Nov 2020 19:23:14 +0800</pubDate>
       
       <guid>https://mymusise.github.io/post/dl/transformer_example/</guid>
-      <description>前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部分</description>
+      <description>0. 前言 OpenAI 发表 GPT2 已经过去一年多了，在网络上也看到有很多个实现的版本。近期想找一个别人训练好的中文模型进行Finetune，网上找了一圈发现大部</description>
     </item>
     
     <item>
