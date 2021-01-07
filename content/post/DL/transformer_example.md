@@ -58,7 +58,7 @@ mathjax: true
 
 # 2. 正文
 
-## 2.1. 数据集
+## 2.1. Dataset
 
 作为测试，可以先从 [ `chinese-poetry` ](https://github.com/chinese-poetry/chinese-poetry) download 几篇诗词过来。当前项目采用rawtext的形式，对于json格式的数据可能需要转换下格式。转化后的数据例子： [test/raw.txt](https://github.com/mymusise/gpt2-quickly/blob/main/dataset/test/raw.txt)
 
@@ -72,7 +72,9 @@ $ head -n 3 dataset/test/raw.txt
 
 ## 2.2. Vocabulary
 
-GPT2官方给出的字典大小为50257，如果只是进行小样本测试，可以通过[ `huggingface/Tokenizers` ](https://github.com/huggingface/tokenizers) 构建自己的字典，一般小样本的字典集合大小都在1000左右的范围内，这样可以打打缩小模型维度，方便我们测试。以 `BertWordPieceTokenizer` 为例：
+GPT2用的是BPE算法，官方给出的字典大小为50257，并没有包括中文。而且按照原论文的编码方法，只用到了基础ASCII表上的256个字符，这种方法用来编码中文语料显然是不合理的。而且目前在网上没有找到按这种BPE编码比较权威的中文字典，所以下面的例子用我们就直接用Bert的WordPiece来进行举例了。
+
+如果你只是进行小样本测试，可以通过[ `huggingface/Tokenizers` ](https://github.com/huggingface/tokenizers) 构建自己的字典，一般小样本的字典集合大小都在1000左右的范围内，这样可以打打缩小模型维度，方便我们测试。以 `BertWordPieceTokenizer` 为例：
 
 ``` python
 from tokenizers import BertWordPieceTokenizer
@@ -83,7 +85,7 @@ tokenizer.train(files=['your raw text file'],
 tokenizer.save_model('path/to/save/')
 ```
 
-实际上，现在大部分中文语言模型，相对于Google的21128大小的字典，我发现大家一般会选[ `CLUE` ](https://github.com/CLUEbenchmark/CLUEPretrainedModels)提供的8021大小的字典。
+笔者发现，现在大部分开源的中文语言模型中，相对于Google的21128大小的字典，我发现大家一般会选[ `CLUE` ](https://github.com/CLUEbenchmark/CLUEPretrainedModels)提供的8021大小的字典。
 
 ## 2.3. Tokenizer
 
